@@ -1,7 +1,7 @@
 package com.solvd.socialnetworkdao.dao.impl;
 
-import com.solvd.socialnetworkdao.Comment;
 import com.solvd.socialnetworkdao.PostPhoto;
+import com.solvd.socialnetworkdao.dao.IPostPhotoDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

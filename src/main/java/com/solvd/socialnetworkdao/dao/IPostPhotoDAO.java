@@ -1,4 +1,4 @@
-package com.solvd.socialnetworkdao.dao.impl;
+package com.solvd.socialnetworkdao.dao;
 
 import com.solvd.socialnetworkdao.PostPhoto;
 import com.solvd.socialnetworkdao.dao.IDAO;

@@ -5,14 +5,13 @@ import com.solvd.socialnetworkdao.Post;
 import com.solvd.socialnetworkdao.PostPhoto;
 import com.solvd.socialnetworkdao.dao.IPhotoDAO;
 import com.solvd.socialnetworkdao.dao.IPostDAO;
-import com.solvd.socialnetworkdao.dao.impl.IPostPhotoDAO;
+import com.solvd.socialnetworkdao.dao.IPostPhotoDAO;
 import com.solvd.socialnetworkdao.dao.impl.PhotoDAO;
 import com.solvd.socialnetworkdao.dao.impl.PostDAO;
 import com.solvd.socialnetworkdao.dao.impl.PostPhotoDAO;
 import com.solvd.socialnetworkdao.services.IPhotoService;
 import com.solvd.socialnetworkdao.services.IPostPhotoService;
 import com.solvd.socialnetworkdao.services.IPostService;
-import com.solvd.socialnetworkdao.services.IService;
 
 import java.util.List;
 
