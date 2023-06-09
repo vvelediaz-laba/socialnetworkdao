@@ -1,13 +1,13 @@
-package com.solvd.socialnetworkdao.services.impl;
+package com.solvd.socialnetworkdao.services.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Photo;
 import com.solvd.socialnetworkdao.PhotoAlbum;
 import com.solvd.socialnetworkdao.Profile;
 import com.solvd.socialnetworkdao.dao.IPhotoAlbumDAO;
 import com.solvd.socialnetworkdao.dao.IProfileDAO;
-import com.solvd.socialnetworkdao.dao.impl.PhotoAlbumDAO;
-import com.solvd.socialnetworkdao.dao.impl.ProfileDAO;
-import com.solvd.socialnetworkdao.dao.impl.PhotoDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoAlbumDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.ProfileDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoDAO;
 import com.solvd.socialnetworkdao.services.IPhotoAlbumService;
 import com.solvd.socialnetworkdao.services.IProfileService;
 

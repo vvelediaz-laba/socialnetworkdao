@@ -1,4 +1,4 @@
-package com.solvd.socialnetworkdao.services.impl;
+package com.solvd.socialnetworkdao.services.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Post;
 import com.solvd.socialnetworkdao.Profile;
@@ -6,9 +6,9 @@ import com.solvd.socialnetworkdao.ProfileTag;
 import com.solvd.socialnetworkdao.dao.IPostDAO;
 import com.solvd.socialnetworkdao.dao.IProfileDAO;
 import com.solvd.socialnetworkdao.dao.IProfileTagDAO;
-import com.solvd.socialnetworkdao.dao.impl.PostDAO;
-import com.solvd.socialnetworkdao.dao.impl.ProfileDAO;
-import com.solvd.socialnetworkdao.dao.impl.ProfileTagDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.PostDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.ProfileDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.ProfileTagDAO;
 import com.solvd.socialnetworkdao.services.IPostService;
 import com.solvd.socialnetworkdao.services.IProfileService;
 import com.solvd.socialnetworkdao.services.IProfileTagService;

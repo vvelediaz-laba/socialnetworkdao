@@ -1,9 +1,9 @@
-package com.solvd.socialnetworkdao.services.impl;
+package com.solvd.socialnetworkdao.services.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Profile;
 import com.solvd.socialnetworkdao.User;
-import com.solvd.socialnetworkdao.dao.impl.ProfileDAO;
-import com.solvd.socialnetworkdao.dao.impl.UserDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.ProfileDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.UserDAO;
 import com.solvd.socialnetworkdao.services.IService;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.solvd.socialnetworkdao.dao.impl;
+package com.solvd.socialnetworkdao.dao.impl.jdbc;
 
 import com.solvd.socialnetworkdao.User;
 import com.solvd.socialnetworkdao.dao.IDAO;

@@ -1,8 +1,7 @@
-package com.solvd.socialnetworkdao.dao.impl;
+package com.solvd.socialnetworkdao.dao.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Photo;
 import com.solvd.socialnetworkdao.Post;
-import com.solvd.socialnetworkdao.dao.IDAO;
 import com.solvd.socialnetworkdao.dao.IPhotoDAO;
 
 import java.sql.Date;

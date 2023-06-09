@@ -1,15 +1,14 @@
-package com.solvd.socialnetworkdao.services.impl;
+package com.solvd.socialnetworkdao.services.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Friendship;
 import com.solvd.socialnetworkdao.Profile;
 import com.solvd.socialnetworkdao.dao.IFriendshipDAO;
 import com.solvd.socialnetworkdao.dao.IProfileDAO;
-import com.solvd.socialnetworkdao.dao.impl.FriendshipDAO;
-import com.solvd.socialnetworkdao.dao.impl.ProfileDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.FriendshipDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.ProfileDAO;
 import com.solvd.socialnetworkdao.services.IFriendshipService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FriendshipService implements IFriendshipService {
     private final IFriendshipDAO friendshipDAO = new FriendshipDAO();

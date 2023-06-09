@@ -1,8 +1,8 @@
-package com.solvd.socialnetworkdao.services.impl;
+package com.solvd.socialnetworkdao.services.impl.jdbc;
 
 import com.solvd.socialnetworkdao.*;
 import com.solvd.socialnetworkdao.dao.*;
-import com.solvd.socialnetworkdao.dao.impl.*;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.*;
 import com.solvd.socialnetworkdao.services.*;
 
 import java.util.List;

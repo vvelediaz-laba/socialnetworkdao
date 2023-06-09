@@ -1,4 +1,4 @@
-package com.solvd.socialnetworkdao.dao.impl;
+package com.solvd.socialnetworkdao.dao.impl.jdbc;
 
 import com.solvd.socialnetworkdao.PhotoAlbum;
 import com.solvd.socialnetworkdao.dao.IPhotoAlbumDAO;

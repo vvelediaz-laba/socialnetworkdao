@@ -1,11 +1,11 @@
-package com.solvd.socialnetworkdao.services.impl;
+package com.solvd.socialnetworkdao.services.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Group;
 import com.solvd.socialnetworkdao.GroupMembership;
 import com.solvd.socialnetworkdao.dao.IGroupDAO;
 import com.solvd.socialnetworkdao.dao.IGroupMembershipDAO;
-import com.solvd.socialnetworkdao.dao.impl.GroupDAO;
-import com.solvd.socialnetworkdao.dao.impl.GroupMembershipDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.GroupDAO;
+import com.solvd.socialnetworkdao.dao.impl.jdbc.GroupMembershipDAO;
 import com.solvd.socialnetworkdao.services.IGroupService;
 
 import java.util.List;

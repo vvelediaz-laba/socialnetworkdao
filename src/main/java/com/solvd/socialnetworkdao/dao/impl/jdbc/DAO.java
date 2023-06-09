@@ -1,8 +1,7 @@
-package com.solvd.socialnetworkdao.dao.impl;
+package com.solvd.socialnetworkdao.dao.impl.jdbc;
 
 import com.solvd.socialnetworkdao.connection.ConnectionPool;
 import com.solvd.socialnetworkdao.dao.ConnectionFunction;
-import com.solvd.socialnetworkdao.dao.IDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

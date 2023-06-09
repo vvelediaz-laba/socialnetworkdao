@@ -1,7 +1,6 @@
-package com.solvd.socialnetworkdao.dao.impl;
+package com.solvd.socialnetworkdao.dao.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Friendship;
-import com.solvd.socialnetworkdao.dao.IDAO;
 import com.solvd.socialnetworkdao.dao.IFriendshipDAO;
 
 import java.sql.PreparedStatement;
