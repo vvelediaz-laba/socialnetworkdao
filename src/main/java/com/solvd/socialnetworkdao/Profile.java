@@ -90,11 +90,11 @@ public class Profile {
         this.posts = posts;
     }
 
-    public List<ProfileTag> getTags() {
+    public List<ProfileTag> getProfileTags() {
         return tags;
     }
 
-    public void setTags(List<ProfileTag> tags) {
+    public void setProfileTags(List<ProfileTag> tags) {
         this.tags = tags;
     }
 

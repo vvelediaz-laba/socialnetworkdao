@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg%n" />
+        </Console>
+        <File name="FileAppender" fileName="logs/socialnetworkdao.log">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="FileAppender" />
+        </Root>
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.CommentDAO" level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.FriendshipDAO" level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.GroupDAO" level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.GroupMembershipDAO" level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.LikeDAO" level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.MessageDAO" level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.PhotoAlbumDAO" level="INFO">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+    </Loggers>
+</Configuration>

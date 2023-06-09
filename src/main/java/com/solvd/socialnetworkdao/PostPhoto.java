@@ -1,8 +1,17 @@
 package com.solvd.socialnetworkdao;
 
 public class PostPhoto {
+    private Long id;
     private Post post;
     private Photo photo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Post getPost() {
         return post;

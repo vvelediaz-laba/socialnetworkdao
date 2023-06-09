@@ -2,7 +2,7 @@ package com.solvd.socialnetworkdao;
 
 public class GroupMembership {
     private Long id;
-    private Profile memberProfileId;
+    private Profile memberProfile;
     private String role;
     private Group group;
 
@@ -14,12 +14,12 @@ public class GroupMembership {
         this.id = id;
     }
 
-    public Profile getMemberProfileId() {
-        return memberProfileId;
+    public Profile getMemberProfile() {
+        return memberProfile;
     }
 
-    public void setMemberProfileId(Profile memberProfileId) {
-        this.memberProfileId = memberProfileId;
+    public void setMemberProfile(Profile memberProfileId) {
+        this.memberProfile = memberProfileId;
     }
 
     public String getRole() {
