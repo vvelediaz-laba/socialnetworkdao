@@ -29,7 +29,7 @@ public class PostPhotoDAO extends DAO implements IPostPhotoDAO {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             return createPostPhoto(resultSet);
-        })
+        });
     }
 
     @Override

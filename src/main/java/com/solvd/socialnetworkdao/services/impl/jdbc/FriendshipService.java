@@ -45,12 +45,12 @@ public class FriendshipService implements IFriendshipService {
         friendshipDAO.delete(id);
     }
 
-    public void setValues(Friendship friendship) {
+    private void setValues(Friendship friendship) {
         Profile requesterProfile = profileDAO.getByFriendshipId(friendship.getId());
-        profileService.setValues(requesterProfile);
+        requesterProfile = profileService.getById(requesterProfile.getId());
 
         Profile requestedProfile = profileDAO.getRequestedByFriendshipId(friendship.getId());
-        profileService.setValues(requestedProfile);
+        requesterProfile = profileService.getById(requesterProfile.getId());
 
         friendship.setRequesterProfile(requesterProfile);
         friendship.setRequestedProfile(requestedProfile);

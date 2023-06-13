@@ -52,12 +52,12 @@ public class CommentService implements ICommentService {
         commentDAO.delete(id);
     }
 
-    public void setValues(Comment comment){
+    private void setValues(Comment comment){
         Post commentedPost = postDAO.getByCommentId(comment.getId());
-        postService.setValues(commentedPost);
+        commentedPost = postService.getById(commentedPost.getId());
 
         Profile profile = profileDAO.getByCommentId(comment.getId());
-        profileService.setValues(profile);
+        profile = profileService.getById(profile.getId());
 
         comment.setCommentedPost(commentedPost);
         comment.setAuthorProfile(profile);

@@ -51,15 +51,14 @@ public class PhotoAlbumService implements IPhotoAlbumService {
         photoAlbumDAO.delete(id);
     }
 
-    @Override
-    public void setValues(PhotoAlbum photoAlbum) {
+    private void setValues(PhotoAlbum photoAlbum) {
         Profile ownerProfile = profileDAO.getByPhotoAlbumId(photoAlbum.getId());
-        profileService.setValues(ownerProfile);
+        ownerProfile = profileService.getById(ownerProfile.getId());
         photoAlbum.setAlbumProfile(ownerProfile);
 
         List<Photo> photos = photoDAO.getPhotosByPhotoAlbumId(photoAlbum.getId());
         for(Photo photo : photos){
-            photoService.setValues(photo);
+            photo = photoService.getById(photo.getId());
         }
         photoAlbum.setPhotos(photos);
     }

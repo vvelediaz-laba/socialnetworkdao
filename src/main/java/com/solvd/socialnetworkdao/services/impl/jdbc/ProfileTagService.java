@@ -53,13 +53,12 @@ public class ProfileTagService implements IProfileTagService {
         profileTagDAO.delete(id);
     }
 
-    @Override
-    public void setValues(ProfileTag profileTag) {
+    private void setValues(ProfileTag profileTag) {
         Profile profile = profileDAO.getByProfileTagId(profileTag.getId());
-        profileService.setValues(profile);
+        profile = profileService.getById(profile.getId());
 
         Post post = postDAO.getByProfileTagId(profileTag.getId());
-        postService.setValues(post);
+        post = postService.getById(post.getId());
 
         profileTag.setTaggedProfile(profile);
         profileTag.setTaggedPost(post);

@@ -1,5 +1,7 @@
 package com.solvd.socialnetworkdao.services;
 
+import com.solvd.socialnetworkdao.Profile;
+
 import java.util.List;
 
 public interface IService<T> {
@@ -8,5 +10,4 @@ public interface IService<T> {
     List<T> getAll();
     void update(T t);
     void delete(long id);
-    void setValues(T t);
 }

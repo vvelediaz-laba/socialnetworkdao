@@ -51,22 +51,22 @@ public class PostService implements IPostService {
 
     public void setValues(Post post) {
         Profile profile = profileDAO.getByPostId(post.getId());
-        profileService.setValues(profile);
+        profile = profileService.getById(profile.getId());
         post.setPosterProfile(profile);
         
         List<Like> likes = likeDAO.getLikesByPostId(post.getId());
         for(Like like : likes){
-            likeService.setValues(like);
+            like = likeService.getById(like.getId());
         }
 
         List<Comment> comments = commentDAO.getCommentsByPostId(post.getId());
         for(Comment comment : comments){
-            commentService.setValues(comment);
+            comment = commentService.getById(comment.getId());
         }
 
         List<Photo> photos = photoDAO.getPhotosByPostId(post.getId());
         for(Photo photo : photos){
-            photoService.setValues(photo);
+            photo = photoService.getById(photo.getId());
         }
 
         post.setLikes(likes);

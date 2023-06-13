@@ -53,13 +53,12 @@ public class PostPhotoService implements IPostPhotoService {
         postPhotoDAO.delete(id);
     }
 
-    @Override
-    public void setValues(PostPhoto postPhoto) {
+    private void setValues(PostPhoto postPhoto) {
         Post post = postDAO.getByPostPhotoId(postPhoto.getId());
-        postService.setValues(post);
+        post = postService.getById(post.getId());
 
         Photo photo = photoDAO.getByPostPhotoId(postPhoto.getId());
-        photoService.setValues(photo);
+        photo = photoService.getById(photo.getId());
 
         postPhoto.setPost(post);
         postPhoto.setPhoto(photo);

@@ -50,14 +50,13 @@ public class PhotoService implements IPhotoService {
         photoDAO.delete(id);
     }
 
-    @Override
-    public void setValues(Photo photo) {
+    private void setValues(Photo photo) {
         PhotoAlbum photoAlbum = photoAlbumDAO.getByPhotoId(photo.getId());
-        photoAlbumService.setValues(photoAlbum);
+        photoAlbum = photoAlbumDAO.getById(photoAlbum.getId());
 
         List<Post> associatedPosts = photoDAO.getAssociatedPosts(photo.getId());
         for(Post post : associatedPosts){
-            postService.setValues(post);
+            post = postService.getById(post.getId());
         }
 
         photo.setPhotoAlbum(photoAlbum);

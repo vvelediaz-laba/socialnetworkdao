@@ -44,9 +44,9 @@ public class UserService implements IService<User> {
         userDAO.delete(id);
     }
 
-    public void setValues(User user){
+    private void setValues(User user){
         Profile profile = profileDAO.getByUserId(user.getId());
-        profileService.setValues(profile);
+        profile = profileService.getById(profile.getId());
         user.setProfile(profile);
     }
 }

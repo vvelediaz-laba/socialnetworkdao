@@ -53,12 +53,12 @@ public class LikeService implements ILikeService {
         likeDAO.delete(id);
     }
 
-    public void setValues(Like like){
+    private void setValues(Like like){
         Profile likerProfile = profileDAO.getByLikeId(like.getId());
-        profileService.setValues(likerProfile);
+        likerProfile = profileService.getById(likerProfile.getId());
         
         Post likedPost = postDAO.getByLikeId(like.getId());
-        postService.setValues(likedPost);
+        likedPost = postService.getById(likedPost.getId());
 
         like.setLikerProfile(likerProfile);
         like.setLikedPost(likedPost);

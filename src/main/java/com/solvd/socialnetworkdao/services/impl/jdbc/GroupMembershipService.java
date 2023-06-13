@@ -1,5 +1,6 @@
 package com.solvd.socialnetworkdao.services.impl.jdbc;
 
+import com.solvd.socialnetworkdao.Friendship;
 import com.solvd.socialnetworkdao.Group;
 import com.solvd.socialnetworkdao.GroupMembership;
 import com.solvd.socialnetworkdao.Profile;
@@ -15,7 +16,7 @@ import com.solvd.socialnetworkdao.services.IProfileService;
 
 import java.util.List;
 
-public class GroupMembershipServiceService implements IGroupMembershipService {
+public class GroupMembershipService implements IGroupMembershipService {
     private final IGroupMembershipDAO groupMembershipDAO = new GroupMembershipDAO();
     private final IProfileDAO profileDAO = new ProfileDAO();
     private final IProfileService profileService = new ProfileService();
@@ -31,28 +32,31 @@ public class GroupMembershipServiceService implements IGroupMembershipService {
     public GroupMembership getById(long id){
         GroupMembership groupMembership = new GroupMembershipDAO().getById(id);
         setValues(groupMembership);
-
         return groupMembership;
     }
 
     @Override
     public List<GroupMembership> getAll() {
-        return null;
+        List<GroupMembership> memberships = groupMembershipDAO.getAll();
+        for(GroupMembership membership : memberships){
+            setValues(membership);
+        }
+        return memberships;
     }
 
     @Override
-    public void update(GroupMembership object) {
-
+    public void update(GroupMembership membership) {
+        groupMembershipDAO.update(membership);
     }
 
     @Override
     public void delete(long id) {
-
+        groupMembershipDAO.delete(id);
     }
 
-    public void setValues(GroupMembership groupMembership) {
+    private void setValues(GroupMembership groupMembership) {
         Profile profile = profileDAO.getByGroupMembershipId(groupMembership.getId());
-        profileService.setValues(profile);
+        profile = profileService.getById(profile.getId());
 
         Group group = groupDAO.getByGroupMembershipId(groupMembership.getId());
 

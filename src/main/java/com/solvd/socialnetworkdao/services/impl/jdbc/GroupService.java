@@ -6,6 +6,8 @@ import com.solvd.socialnetworkdao.dao.IGroupDAO;
 import com.solvd.socialnetworkdao.dao.IGroupMembershipDAO;
 import com.solvd.socialnetworkdao.dao.impl.jdbc.GroupDAO;
 import com.solvd.socialnetworkdao.dao.impl.jdbc.GroupMembershipDAO;
+import com.solvd.socialnetworkdao.services.IGroupMembershipService;
+import com.solvd.socialnetworkdao.services.impl.jdbc.GroupMembershipService;
 import com.solvd.socialnetworkdao.services.IGroupService;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class GroupService implements IGroupService {
     IGroupDAO groupDAO = new GroupDAO();
     IGroupMembershipDAO groupMembershipDAO = new GroupMembershipDAO();
+    IGroupMembershipService groupMembershipService = new GroupMembershipService();
 
     @Override
     public void insert(Group group) {
@@ -45,11 +48,10 @@ public class GroupService implements IGroupService {
         groupDAO.delete(id);
     }
 
-    @Override
-    public void setValues(Group group) {
+    private void setValues(Group group) {
         List<GroupMembership> memberships = groupMembershipDAO.getMembershipsByGroupId(group.getId());
         for(GroupMembership membership : memberships){
-            new GroupMembershipServiceService().setValues(membership);
+            membership = groupMembershipService.getById(membership.getId());
         }
         group.setGroupMembers(memberships);
     }

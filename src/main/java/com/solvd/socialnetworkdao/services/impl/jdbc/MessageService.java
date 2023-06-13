@@ -47,12 +47,12 @@ public class MessageService implements IMessageService {
         messageDAO.delete(id);
     }
 
-    public void setValues(Message message){
+    private void setValues(Message message){
         Profile senderProfile = profileDAO.getSenderByMessageId(message.getId());
-        profileService.setValues(senderProfile);
+        senderProfile = profileService.getById(senderProfile.getId());
 
         Profile receiverProfile = profileDAO.getReceiverByMessageId(message.getId());
-        profileService.setValues(receiverProfile);
+        receiverProfile = profileService.getById(receiverProfile.getId());
 
         message.setSender(senderProfile);
         message.setReceiver(receiverProfile);

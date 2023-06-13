@@ -22,7 +22,7 @@ public class ProfileService implements IProfileService {
     private final ILikeDAO likeDAO = new LikeDAO();
     private final ILikeService likeService = new LikeService();
     private final IGroupMembershipDAO groupMembershipDAO = new GroupMembershipDAO();
-    private final IGroupMembershipService groupMembershipService = new GroupMembershipServiceService();
+    private final IGroupMembershipService groupMembershipService = new GroupMembershipService();
     private final IMessageDAO messageDAO = new MessageDAO();
     private final IMessageService messageService = new MessageService();
 
@@ -57,45 +57,45 @@ public class ProfileService implements IProfileService {
         profileDAO.delete(id);
     }
 
-    public void setValues(Profile profile) {
+    private void setValues(Profile profile) {
         List<PhotoAlbum> photoAlbums = photoAlbumDAO.getPhotoAlbumsByProfileId(profile.getId());
         for(PhotoAlbum photoAlbum : photoAlbums){
-            photoAlbumService.setValues(photoAlbum);
+            photoAlbum = photoAlbumService.getById(photoAlbum.getId());
         }
 
         List<Comment> comments = commentDAO.getCommentsByProfileId(profile.getId());
         for(Comment comment : comments){
-            commentService.setValues(comment);
+            comment = commentService.getById(comment.getId());
         }
 
         List<Friendship> friendships = friendshipDAO.getFriendshipsByProfileId(profile.getId());
         for(Friendship friendship : friendships){
-            friendshipService.setValues(friendship);
+            friendship = friendshipService.getById(friendship.getId());
         }
 
         List<Post> posts = postDAO.getPostsByProfileId(profile.getId());
         for(Post post : posts){
-            postService.setValues(post);
+            post = postService.getById(post.getId());
         }
 
         List<ProfileTag> profileTags = profileTagDAO.getProfileTagsByProfileId(profile.getId());
         for(ProfileTag profileTag : profileTags){
-            profileTagService.setValues(profileTag);
+            profileTag = profileTagService.getById(profileTag.getId());
         }
 
         List<Like> likes = likeDAO.getLikesByProfileId(profile.getId());
         for(Like like : likes){
-            likeService.setValues(like);
+            like = likeService.getById(like.getId());
         }
 
         List<GroupMembership> groupMemberships = groupMembershipDAO.getGroupMembershipsByProfileId(profile.getId());
         for(GroupMembership groupMembership : groupMemberships){
-            groupMembershipService.setValues(groupMembership);
+            groupMembership = groupMembershipService.getById(groupMembership.getId());
         }
 
         List<Message> messages = messageDAO.getMessagesByProfileId(profile.getId());
         for(Message message : messages){
-            messageService.setValues(message);
+            message = messageService.getById(message.getId());
         }
 
         profile.setPhotoAlbums(photoAlbums);

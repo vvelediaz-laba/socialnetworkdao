@@ -12,25 +12,25 @@
         <Root level="INFO">
             <AppenderRef ref="FileAppender" />
         </Root>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.CommentDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.CommentDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.FriendshipDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.FriendshipDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.GroupDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.GroupDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.GroupMembershipDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.GroupMembershipDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.LikeDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.LikeDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.MessageDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.MessageDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.PhotoAlbumDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoAlbumDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
     </Loggers>
