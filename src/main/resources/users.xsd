@@ -1,61 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="users">
+    <xs:element name="user">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user">
+                <xs:element name="id" type="xs:unsignedByte" />
+                <xs:element name="email" type="xs:string" />
+                <xs:element name="password" type="xs:string" />
+                <xs:element name="registration_date" type="xs:dateTime" />
+                <xs:element name="profile">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="id" type="xs:unsignedByte" />
-                            <xs:element name="email" type="xs:string" />
-                            <xs:element name="password" type="xs:string" />
-                            <xs:element name="registration_date" type="xs:dateTime" />
-                            <xs:element name="profile">
+                            <xs:element name="full_name" type="xs:string" />
+                            <xs:element name="date_of_birth" type="xs:dateTime" />
+                            <xs:element name="gender" type="xs:string" />
+                            <xs:element name="bio" type="xs:string" />
+                            <xs:element name="posts">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="id" type="xs:unsignedByte" />
-                                        <xs:element name="full_name" type="xs:string" />
-                                        <xs:element name="date_of_birth" type="xs:dateTime" />
-                                        <xs:element name="gender" type="xs:string" />
-                                        <xs:element name="bio" type="xs:string" />
-                                        <xs:element name="posts">
+                                        <xs:element name="post">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="post">
+                                                    <xs:element name="id" type="xs:unsignedByte" />
+                                                    <xs:element name="date_created" type="xs:dateTime" />
+                                                    <xs:element name="content" type="xs:string" />
+                                                    <xs:element name="comment">
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="id" type="xs:unsignedByte" />
-                                                                <xs:element name="date_created" type="xs:dateTime" />
+                                                                <xs:element name="author_profile_id" type="xs:unsignedByte" />
                                                                 <xs:element name="content" type="xs:string" />
-                                                                <xs:element name="comment">
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="id" type="xs:unsignedByte" />
-                                                                            <xs:element name="author_profile_id" type="xs:unsignedByte" />
-                                                                            <xs:element name="content" type="xs:string" />
-                                                                            <xs:element name="date_created" type="xs:dateTime" />
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
-                                                                </xs:element>
+                                                                <xs:element name="date_created" type="xs:dateTime" />
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element name="messages">
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="messages">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="message">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="message">
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="id" type="xs:unsignedByte" />
-                                                                <xs:element name="content" type="xs:string" />
-                                                                <xs:element name="date_sent" type="xs:dateTime" />
-                                                                <xs:element name="receiver_profile_id" type="xs:unsignedByte" />
-                                                            </xs:sequence>
-                                                        </xs:complexType>
-                                                    </xs:element>
+                                                    <xs:element name="id" type="xs:unsignedByte" />
+                                                    <xs:element name="content" type="xs:string" />
+                                                    <xs:element name="date_sent" type="xs:dateTime" />
+                                                    <xs:element name="receiver_profile_id" type="xs:unsignedByte" />
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>

@@ -1,14 +1,25 @@
 package com.solvd.socialnetworkdao;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.sql.Date;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Post {
+    @XmlElement
     private Long id;
+    @XmlElement(name = "poster_profile")
     private Profile posterProfile;
+    @XmlElement(name = "date_created")
     private Date dateCreated;
+    @XmlElement
     private String content;
     private List<Like> likes;
+    @XmlElementWrapper(name = "comments")
+    @XmlElement(name = "comment")
     private List<Comment> comments;
     private List<Profile> taggedProfiles;
     private List<Photo> photos;

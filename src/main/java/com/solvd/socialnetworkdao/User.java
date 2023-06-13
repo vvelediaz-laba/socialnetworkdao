@@ -1,12 +1,20 @@
 package com.solvd.socialnetworkdao;
 
+import javax.xml.bind.annotation.*;
 import java.sql.Date;
 
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
+    @XmlElement
     private Long id;
+    @XmlElement
     private String email;
+    @XmlElement
     private String password;
+    @XmlElement(name = "registration_date")
     private Date registrationDate;
+    @XmlElement
     private Profile profile;
 
     public Long getId() {

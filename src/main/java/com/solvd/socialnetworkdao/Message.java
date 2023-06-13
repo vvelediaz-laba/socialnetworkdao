@@ -1,12 +1,21 @@
 package com.solvd.socialnetworkdao;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import java.sql.Date;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Message {
+    @XmlElement
     private Long id;
+    @XmlElement
     private String content;
+    @XmlElement(name = "receiver_profile")
     private Profile receiver;
+    @XmlElement(name = "sender_profile")
     private Profile sender;
+    @XmlElement(name = "date_sent")
     private Date dateSent;
 
     public Long getId() {

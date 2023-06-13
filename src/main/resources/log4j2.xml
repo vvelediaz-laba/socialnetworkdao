@@ -30,8 +30,10 @@
         <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.MessageDAO" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
-        <Logger name="com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoAlbumDAO" level="INFO">
+        <Logger name="com.solvd.socialnetworkdao.parser.jaxb.UserToXml" level="INFO">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
+
+
     </Loggers>
 </Configuration>

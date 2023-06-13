@@ -1,21 +1,35 @@
 package com.solvd.socialnetworkdao;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.sql.Date;
 import java.util.List;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Profile {
+    @XmlElement
     private Long id;
+    @XmlElement(name = "full_name")
     private String fullName;
+    @XmlElement(name = "date_of_birth")
     private Date dateOfBirth;
+    @XmlElement
     private String gender;
+    @XmlElement
     private String bio;
     private List<PhotoAlbum> photoAlbums;
     private List<Comment> comments;
     private List<Friendship> friendships;
+    @XmlElementWrapper(name = "posts")
+    @XmlElement(name = "post")
     private List<Post> posts;
     private List<ProfileTag> tags;
     private List<Like> likes;
     private List<GroupMembership> groupMemberships;
+    @XmlElementWrapper(name = "messages")
+    @XmlElement(name = "message")
     private List<Message> messages;
 
     public Long getId() {
