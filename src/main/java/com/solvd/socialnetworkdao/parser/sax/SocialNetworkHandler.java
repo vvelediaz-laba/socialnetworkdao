@@ -3,7 +3,6 @@ package com.solvd.socialnetworkdao.parser.sax;
 import com.solvd.socialnetworkdao.*;
 import com.solvd.socialnetworkdao.services.impl.jdbc.ProfileService;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class SocialNetworkHandler extends DefaultHandler {
     private boolean isUser, isProfile, isPost, isComment, isMessage;
 
     @Override
-    public void startDocument() throws SAXException {
+    public void startDocument() {
         this.user = new User();
         this.profile = new Profile();
         this.post = new Post();
@@ -28,7 +27,7 @@ public class SocialNetworkHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         currentValue = "";
         switch(qName){
             case "user":
@@ -53,12 +52,12 @@ public class SocialNetworkHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         currentValue = new String(ch, start, length);
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         switch (qName) {
             case "id":
                 if(isUser) user.setId(Long.valueOf(currentValue));
@@ -112,7 +111,7 @@ public class SocialNetworkHandler extends DefaultHandler {
     }
 
     @Override
-    public void endDocument() throws SAXException {
+    public void endDocument() {
         List<Post> posts = new ArrayList<>();
         List<Message> messages = new ArrayList<>();
         List<Comment> comments = new ArrayList<>();

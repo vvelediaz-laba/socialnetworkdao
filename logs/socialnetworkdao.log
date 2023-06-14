@@ -1,0 +1,9 @@
+[ERROR] 2023-06-13 07:47:12.899 [main] UserToXml - Implementation of JAXB-API has not been found on module path or classpath.
+[ERROR] 2023-06-13 07:49:02.197 [main] UserToXml - Implementation of JAXB-API has not been found on module path or classpath.
+[ERROR] 2023-06-13 07:50:23.436 [main] UserToXml - Implementation of JAXB-API has not been found on module path or classpath.
+[ERROR] 2023-06-13 07:51:29.096 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-13 08:01:57.220 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-13 08:05:11.880 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-13 08:11:08.664 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-13 08:20:31.487 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-13 08:21:56.372 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
