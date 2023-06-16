@@ -1,5 +1,10 @@
 package com.solvd.socialnetworkdao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.solvd.socialnetworkdao.parser.json.DateSerializer;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -9,28 +14,43 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Profile {
+    @JsonProperty
     @XmlElement
     private Long id;
+    @JsonProperty
     @XmlElement(name = "full_name")
     private String fullName;
+    @JsonSerialize(using = DateSerializer.class)
     @XmlElement(name = "date_of_birth")
     private Date dateOfBirth;
+    @JsonProperty
     @XmlElement
     private String gender;
+    @JsonProperty
     @XmlElement
     private String bio;
+    @JsonIgnore
     private List<PhotoAlbum> photoAlbums;
-    private List<Comment> comments;
-    private List<Friendship> friendships;
+    @JsonIgnore
+    private List<Friendship> outgoingFriendships;
+    @JsonIgnore
+    private List<Friendship> incomingFriendships;
+    @JsonProperty("posts")
     @XmlElementWrapper(name = "posts")
     @XmlElement(name = "post")
     private List<Post> posts;
-    private List<ProfileTag> tags;
-    private List<Like> likes;
+    @JsonIgnore
+    private List<ProfileTag> profileTags;
+    @JsonIgnore
     private List<GroupMembership> groupMemberships;
+    @JsonProperty("messages")
     @XmlElementWrapper(name = "messages")
     @XmlElement(name = "message")
-    private List<Message> messages;
+    private List<Message> outgoingMessages;
+    @JsonIgnore
+    private List<Message> incomingMessages;
+    @JsonIgnore
+    private List<Like> likes;
 
     public Long getId() {
         return id;
@@ -80,20 +100,20 @@ public class Profile {
         this.photoAlbums = photoAlbums;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public List<Friendship> getOutgoingFriendships() {
+        return outgoingFriendships;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void setOutgoingFriendships(List<Friendship> outgoingFriendships) {
+        this.outgoingFriendships = outgoingFriendships;
     }
 
-    public List<Friendship> getFriendships() {
-        return friendships;
+    public List<Friendship> getIncomingFriendships() {
+        return incomingFriendships;
     }
 
-    public void setFriendships(List<Friendship> friendships) {
-        this.friendships = friendships;
+    public void setIncomingFriendships(List<Friendship> incomingFriendships) {
+        this.incomingFriendships = incomingFriendships;
     }
 
     public List<Post> getPosts() {
@@ -105,19 +125,11 @@ public class Profile {
     }
 
     public List<ProfileTag> getProfileTags() {
-        return tags;
+        return profileTags;
     }
 
     public void setProfileTags(List<ProfileTag> tags) {
-        this.tags = tags;
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+        this.profileTags = tags;
     }
 
     public List<GroupMembership> getGroupMemberships() {
@@ -128,11 +140,47 @@ public class Profile {
         this.groupMemberships = groupMemberships;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public List<Message> getOutgoingMessages() {
+        return outgoingMessages;
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public void setOutgoingMessages(List<Message> outgoingMessages) {
+        this.outgoingMessages = outgoingMessages;
+    }
+
+    public List<Message> getIncomingMessages() {
+        return incomingMessages;
+    }
+
+    public void setIncomingMessages(List<Message> incomingMessages) {
+        this.incomingMessages = incomingMessages;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", gender='" + gender + '\'' +
+                ", bio='" + bio + '\'' +
+                ", photoAlbums=" + photoAlbums +
+                ", outgoingFriendships=" + outgoingFriendships +
+                ", incomingFriendships=" + incomingFriendships +
+                ", posts=" + posts +
+                ", tags=" + profileTags +
+                ", groupMemberships=" + groupMemberships +
+                ", outgoingMessages=" + outgoingMessages +
+                ", incomingMessages=" + incomingMessages +
+                ", likes=" + likes +
+                '}';
     }
 }

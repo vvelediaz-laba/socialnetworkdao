@@ -1,5 +1,10 @@
 package com.solvd.socialnetworkdao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.solvd.socialnetworkdao.parser.json.DateSerializer;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -9,19 +14,24 @@ import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Post {
+    @JsonProperty
     @XmlElement
     private Long id;
-    @XmlElement(name = "poster_profile")
-    private Profile posterProfile;
+    @JsonSerialize(using = DateSerializer.class)
     @XmlElement(name = "date_created")
     private Date dateCreated;
+    @JsonProperty
     @XmlElement
     private String content;
+    @JsonIgnore
     private List<Like> likes;
+    @JsonProperty
     @XmlElementWrapper(name = "comments")
     @XmlElement(name = "comment")
     private List<Comment> comments;
-    private List<Profile> taggedProfiles;
+    @JsonIgnore
+    private List<ProfileTag> tags;
+    @JsonIgnore
     private List<Photo> photos;
 
     public Long getId() {
@@ -30,14 +40,6 @@ public class Post {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Profile getPosterProfile() {
-        return posterProfile;
-    }
-
-    public void setPosterProfile(Profile posterProfile) {
-        this.posterProfile = posterProfile;
     }
 
     public Date getDateCreated() {
@@ -72,12 +74,12 @@ public class Post {
         this.comments = comments;
     }
 
-    public List<Profile> getTaggedProfiles() {
-        return taggedProfiles;
+    public List<ProfileTag> getTags() {
+        return tags;
     }
 
-    public void setTaggedProfiles(List<Profile> taggedProfiles) {
-        this.taggedProfiles = taggedProfiles;
+    public void setTags(List<ProfileTag> tags) {
+        this.tags = tags;
     }
 
     public List<Photo> getPhotos() {

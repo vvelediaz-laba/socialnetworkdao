@@ -1,19 +1,20 @@
 package com.solvd.socialnetworkdao.parser.jaxb;
 
 import com.solvd.socialnetworkdao.*;
+import com.solvd.socialnetworkdao.parser.sax.DateAdapter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 public class UserToXml {
     private static final Logger logger = LogManager.getLogger(UserToXml.class.getName());
+    private static final DateAdapter adapter = new DateAdapter();
 
     public static void main(String[] args) {
         try {
@@ -26,15 +27,12 @@ public class UserToXml {
             user.setId(1L);
             user.setEmail("bobsmith@example.com");
             user.setPassword("pa$$word");
-            user.setRegistrationDate(Date.valueOf("2023-06-12"));
-
-            Profile receiver = new Profile();
-            receiver.setId(2L);
+            user.setRegistrationDate(adapter.unmarshal("2023-06-12"));
 
             Profile profile = new Profile();
             profile.setId(1L);
             profile.setFullName("Bob Smith");
-            profile.setDateOfBirth(Date.valueOf("1990-01-01"));
+            profile.setDateOfBirth(adapter.unmarshal("1990-01-01"));
             profile.setGender("Male");
             profile.setBio("Sample bio");
 
@@ -42,17 +40,15 @@ public class UserToXml {
 
             Post post = new Post();
             post.setId(1L);
-            post.setDateCreated(Date.valueOf("2023-06-12 12:00:00"));
+            post.setDateCreated(adapter.unmarshal("2023-06-12 12:00:00"));
             post.setContent("Sample post content");
 
             List<Comment> comments = new ArrayList<>();
 
             Comment comment = new Comment();
             comment.setId(1L);
-            comment.setAuthorProfile(profile);
-            comment.setCommentedPost(post);
             comment.setContent("Sample comment");
-            comment.setDateCreated(Date.valueOf("2023-06-12 12:30:00"));
+            comment.setDateCreated(adapter.unmarshal("2023-06-12 12:30:00"));
 
             comments.add(comment);
             post.setComments(comments);
@@ -65,11 +61,10 @@ public class UserToXml {
             Message message = new Message();
             message.setId(1L);
             message.setContent("Hello! How are you?");
-            message.setDateSent(Date.valueOf("2023-06-12 14:30:00"));
-            message.setReceiver(receiver);
+            message.setDateSent(adapter.unmarshal("2023-06-12 14:30:00"));
 
             messages.add(message);
-            profile.setMessages(messages);
+            profile.setOutgoingMessages(messages);
 
             user.setProfile(profile);
 

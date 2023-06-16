@@ -11,20 +11,13 @@ public class ProfileService implements IProfileService {
     private final IProfileDAO profileDAO = new ProfileDAO();
     private final IPhotoAlbumDAO photoAlbumDAO = new PhotoAlbumDAO();
     private final IPhotoAlbumService photoAlbumService = new PhotoAlbumService();
-    private final ICommentDAO commentDAO = new CommentDAO();
-    private final ICommentService commentService = new CommentService();
     private final IFriendshipDAO friendshipDAO = new FriendshipDAO();
-    private final IFriendshipService friendshipService = new FriendshipService();
     private final IPostDAO postDAO = new PostDAO();
     private final IPostService postService = new PostService();
     private final IProfileTagDAO profileTagDAO = new ProfileTagDAO();
-    private final IProfileTagService profileTagService = new ProfileTagService();
-    private final ILikeDAO likeDAO = new LikeDAO();
-    private final ILikeService likeService = new LikeService();
     private final IGroupMembershipDAO groupMembershipDAO = new GroupMembershipDAO();
-    private final IGroupMembershipService groupMembershipService = new GroupMembershipService();
     private final IMessageDAO messageDAO = new MessageDAO();
-    private final IMessageService messageService = new MessageService();
+    private final ILikeDAO likeDAO = new LikeDAO();
 
     @Override
     public void insert(Profile profile) {
@@ -63,15 +56,9 @@ public class ProfileService implements IProfileService {
             photoAlbum = photoAlbumService.getById(photoAlbum.getId());
         }
 
-        List<Comment> comments = commentDAO.getCommentsByProfileId(profile.getId());
-        for(Comment comment : comments){
-            comment = commentService.getById(comment.getId());
-        }
+        List<Friendship> outgoingFriendships = friendshipDAO.getFriendshipsBySenderProfileId(profile.getId());
 
-        List<Friendship> friendships = friendshipDAO.getFriendshipsByProfileId(profile.getId());
-        for(Friendship friendship : friendships){
-            friendship = friendshipService.getById(friendship.getId());
-        }
+        List<Friendship> incomingFriendships = friendshipDAO.getFriendshipsByReceiverProfileId(profile.getId());
 
         List<Post> posts = postDAO.getPostsByProfileId(profile.getId());
         for(Post post : posts){
@@ -79,32 +66,23 @@ public class ProfileService implements IProfileService {
         }
 
         List<ProfileTag> profileTags = profileTagDAO.getProfileTagsByProfileId(profile.getId());
-        for(ProfileTag profileTag : profileTags){
-            profileTag = profileTagService.getById(profileTag.getId());
-        }
-
-        List<Like> likes = likeDAO.getLikesByProfileId(profile.getId());
-        for(Like like : likes){
-            like = likeService.getById(like.getId());
-        }
 
         List<GroupMembership> groupMemberships = groupMembershipDAO.getGroupMembershipsByProfileId(profile.getId());
-        for(GroupMembership groupMembership : groupMemberships){
-            groupMembership = groupMembershipService.getById(groupMembership.getId());
-        }
 
-        List<Message> messages = messageDAO.getMessagesByProfileId(profile.getId());
-        for(Message message : messages){
-            message = messageService.getById(message.getId());
-        }
+        List<Message> outgoingMessages = messageDAO.getMessagesBySenderProfileId(profile.getId());
+
+        List<Message> incomingMessage = messageDAO.getMessagesByReceiverProfileId(profile.getId());
+
+        List<Like> likes = likeDAO.getLikesByProfileId(profile.getId());
 
         profile.setPhotoAlbums(photoAlbums);
-        profile.setComments(comments);
-        profile.setFriendships(friendships);
+        profile.setOutgoingFriendships(outgoingFriendships);
+        profile.setIncomingFriendships(incomingFriendships);
         profile.setPosts(posts);
         profile.setProfileTags(profileTags);
-        profile.setLikes(likes);
         profile.setGroupMemberships(groupMemberships);
-        profile.setMessages(messages);
+        profile.setOutgoingMessages(outgoingMessages);
+        profile.setIncomingMessages(incomingMessage);
+        profile.setLikes(likes);
     }
 }

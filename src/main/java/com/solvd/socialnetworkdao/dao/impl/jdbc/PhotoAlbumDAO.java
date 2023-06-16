@@ -11,12 +11,12 @@ import java.util.List;
 
 public class PhotoAlbumDAO extends DAO implements IPhotoAlbumDAO {
     @Override
-    public void insert(PhotoAlbum photoAlbum) {
+    public void insert(PhotoAlbum photoAlbum, long profileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO PhotoAlbum (id, album_profile_id, photo_album_name, date_created) VALUES (?, ?, ?, ?)");
             preparedStatement.setLong(1, photoAlbum.getId());
-            preparedStatement.setLong(2, photoAlbum.getAlbumProfile().getId());
+            preparedStatement.setLong(2, profileId);
             preparedStatement.setString(3, photoAlbum.getPhotoAlbumName());
             preparedStatement.setDate(4, new Date(photoAlbum.getDateCreated().getTime()));
             preparedStatement.executeUpdate();
@@ -43,11 +43,11 @@ public class PhotoAlbumDAO extends DAO implements IPhotoAlbumDAO {
     }
 
     @Override
-    public void update(PhotoAlbum photoAlbum) {
+    public void update(PhotoAlbum photoAlbum, long profileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE Photo_Album SET album_profile_id=?, photo_album_name=?, date_created=? WHERE id=?");
-            preparedStatement.setLong(1, photoAlbum.getAlbumProfile().getId());
+            preparedStatement.setLong(1, profileId);
             preparedStatement.setString(2, photoAlbum.getPhotoAlbumName());
             preparedStatement.setDate(3, new Date(photoAlbum.getDateCreated().getTime()));
             preparedStatement.setLong(4, photoAlbum.getId());
@@ -99,7 +99,10 @@ public class PhotoAlbumDAO extends DAO implements IPhotoAlbumDAO {
         List<PhotoAlbum> photoAlbums = new ArrayList<>();
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
-            PhotoAlbum photoAlbum = createPhotoAlbum(resultSet);
+            PhotoAlbum photoAlbum = new PhotoAlbum();
+            photoAlbum.setId(resultSet.getLong("id"));
+            photoAlbum.setPhotoAlbumName(resultSet.getString("photo_album_name"));
+            photoAlbum.setDateCreated(resultSet.getDate("date_created"));
             photoAlbums.add(photoAlbum);
         }
         return photoAlbums;

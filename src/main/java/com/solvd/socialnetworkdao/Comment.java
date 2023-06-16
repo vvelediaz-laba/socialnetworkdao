@@ -1,5 +1,9 @@
 package com.solvd.socialnetworkdao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.solvd.socialnetworkdao.parser.json.DateSerializer;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -7,35 +11,18 @@ import java.sql.Date;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Comment {
+    @JsonProperty
     @XmlElement
     private Long id;
-    @XmlElement(name = "author_profile")
-    private Profile authorProfile;
-    @XmlElement(name = "commented_post")
-    private Post commentedPost;
+    @JsonProperty
     @XmlElement
     private String content;
+    @JsonSerialize(using = DateSerializer.class)
     @XmlElement(name = "date_created")
     private Date dateCreated;
 
     public Long getId() {
         return id;
-    }
-
-    public Profile getAuthorProfile() {
-        return authorProfile;
-    }
-
-    public void setAuthorProfile(Profile authorProfile) {
-        this.authorProfile = authorProfile;
-    }
-
-    public Post getCommentedPost() {
-        return commentedPost;
-    }
-
-    public void setCommentedPost(Post commentedPost) {
-        this.commentedPost = commentedPost;
     }
 
     public void setId(Long id) {

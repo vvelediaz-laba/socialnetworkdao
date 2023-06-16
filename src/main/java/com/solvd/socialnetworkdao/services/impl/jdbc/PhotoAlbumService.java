@@ -2,27 +2,20 @@ package com.solvd.socialnetworkdao.services.impl.jdbc;
 
 import com.solvd.socialnetworkdao.Photo;
 import com.solvd.socialnetworkdao.PhotoAlbum;
-import com.solvd.socialnetworkdao.Profile;
 import com.solvd.socialnetworkdao.dao.IPhotoAlbumDAO;
-import com.solvd.socialnetworkdao.dao.IProfileDAO;
 import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoAlbumDAO;
-import com.solvd.socialnetworkdao.dao.impl.jdbc.ProfileDAO;
 import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoDAO;
 import com.solvd.socialnetworkdao.services.IPhotoAlbumService;
-import com.solvd.socialnetworkdao.services.IProfileService;
 
 import java.util.List;
 
 public class PhotoAlbumService implements IPhotoAlbumService {
     private final IPhotoAlbumDAO photoAlbumDAO = new PhotoAlbumDAO();
-    private final IProfileDAO profileDAO = new ProfileDAO();
-    private final IProfileService profileService = new ProfileService();
     private final PhotoDAO photoDAO = new PhotoDAO();
-    private final PhotoService photoService = new PhotoService();
 
     @Override
-    public void insert(PhotoAlbum photoAlbum) {
-        photoAlbumDAO.insert(photoAlbum);
+    public void insert(PhotoAlbum photoAlbum, long profileId) {
+        photoAlbumDAO.insert(photoAlbum, profileId);
     }
 
     @Override
@@ -42,8 +35,8 @@ public class PhotoAlbumService implements IPhotoAlbumService {
     }
 
     @Override
-    public void update(PhotoAlbum photoAlbum) {
-        photoAlbumDAO.update(photoAlbum);
+    public void update(PhotoAlbum photoAlbum, long profileId) {
+        photoAlbumDAO.update(photoAlbum, profileId);
     }
 
     @Override
@@ -52,14 +45,14 @@ public class PhotoAlbumService implements IPhotoAlbumService {
     }
 
     private void setValues(PhotoAlbum photoAlbum) {
-        Profile ownerProfile = profileDAO.getByPhotoAlbumId(photoAlbum.getId());
-        ownerProfile = profileService.getById(ownerProfile.getId());
-        photoAlbum.setAlbumProfile(ownerProfile);
+        List<Photo> photos;
 
-        List<Photo> photos = photoDAO.getPhotosByPhotoAlbumId(photoAlbum.getId());
-        for(Photo photo : photos){
-            photo = photoService.getById(photo.getId());
+        try {
+            photos = photoDAO.getPhotosByPhotoAlbumId(photoAlbum.getId());
+        }catch (NullPointerException e){
+            return;
         }
+
         photoAlbum.setPhotos(photos);
     }
 }

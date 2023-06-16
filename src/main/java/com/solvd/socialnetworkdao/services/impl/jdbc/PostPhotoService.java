@@ -9,7 +9,6 @@ import com.solvd.socialnetworkdao.dao.IPostPhotoDAO;
 import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoDAO;
 import com.solvd.socialnetworkdao.dao.impl.jdbc.PostDAO;
 import com.solvd.socialnetworkdao.dao.impl.jdbc.PostPhotoDAO;
-import com.solvd.socialnetworkdao.services.IPhotoService;
 import com.solvd.socialnetworkdao.services.IPostPhotoService;
 import com.solvd.socialnetworkdao.services.IPostService;
 
@@ -18,7 +17,6 @@ import java.util.List;
 public class PostPhotoService implements IPostPhotoService {
     private final IPostPhotoDAO postPhotoDAO = new PostPhotoDAO();
     private final IPhotoDAO photoDAO = new PhotoDAO();
-    private final IPhotoService photoService = new PhotoService();
     private final IPostDAO postDAO = new PostDAO();
     private final IPostService postService = new PostService();
 
@@ -58,7 +56,6 @@ public class PostPhotoService implements IPostPhotoService {
         post = postService.getById(post.getId());
 
         Photo photo = photoDAO.getByPostPhotoId(postPhoto.getId());
-        photo = photoService.getById(photo.getId());
 
         postPhoto.setPost(post);
         postPhoto.setPhoto(photo);

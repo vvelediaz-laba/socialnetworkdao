@@ -17,7 +17,7 @@ public class XmlToUser {
             JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
-            return (User) unmarshaller.unmarshal(new File("src/main/resources/users.xml"));
+            return (User) unmarshaller.unmarshal(new File("src/main/resources/user.xml"));
 
         } catch (JAXBException e) {
             logger.error(e.getMessage());

@@ -11,11 +11,11 @@ import java.util.List;
 public class PostDAO extends DAO implements IPostDAO {
 
     @Override
-    public void insert(Post post) {
+    public void insert(Post post, long profileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Post (id, poster_profile_id, date_created, content) VALUES (?, ?, ?, ?)");
             preparedStatement.setLong(1, post.getId());
-            preparedStatement.setLong(2, post.getPosterProfile().getId());
+            preparedStatement.setLong(2, profileId);
             preparedStatement.setDate(3, post.getDateCreated());
             preparedStatement.setString(4, post.getContent());
             preparedStatement.executeUpdate();
@@ -43,10 +43,10 @@ public class PostDAO extends DAO implements IPostDAO {
 
 
     @Override
-    public void update(Post post) {
+    public void update(Post post, long profileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Post SET poster_profile_id=?, date_created=?, content=? WHERE id=?");
-            preparedStatement.setLong(1, post.getPosterProfile().getId());
+            preparedStatement.setLong(1, profileId);
             preparedStatement.setDate(2, post.getDateCreated());
             preparedStatement.setString(3, post.getContent());
             preparedStatement.setLong(4, post.getId());
@@ -128,7 +128,10 @@ public class PostDAO extends DAO implements IPostDAO {
         List<Post> posts = new ArrayList<>();
         ResultSet resultSet = preparedStatement.executeQuery();
         while(resultSet.next()){
-            Post post = createPost(resultSet);
+            Post post = new Post();
+            post.setId(resultSet.getLong("id"));
+            post.setDateCreated(resultSet.getDate("date_created"));
+            post.setContent(resultSet.getString("content"));
             posts.add(post);
         }
         return posts;

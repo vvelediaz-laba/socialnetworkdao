@@ -11,12 +11,13 @@ import java.util.List;
 public class LikeDAO extends DAO implements ILikeDAO {
 
     @Override
-    public void insert(Like like) {
+    public void insert(Like like, long postId, long likerId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO `Like` (liked_post_id, liker_profile_id) VALUES (?, ?)");
-            preparedStatement.setLong(1, like.getLikedPost().getId());
-            preparedStatement.setLong(2, like.getLikerProfile().getId());
+                    "INSERT INTO `Like` (id, liked_post_id, liker_profile_id) VALUES (?, ?, ?)");
+            preparedStatement.setLong(1, like.getId());
+            preparedStatement.setLong(2, postId);
+            preparedStatement.setLong(3, likerId);
             preparedStatement.executeUpdate();
             return null;
         });
@@ -43,12 +44,12 @@ public class LikeDAO extends DAO implements ILikeDAO {
     }
 
     @Override
-    public void update(Like like) {
+    public void update(Like like, long postId, long likerId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE `Like` SET liked_post_id=?, liker_profile_id=? WHERE id=?");
-            preparedStatement.setLong(1, like.getLikedPost().getId());
-            preparedStatement.setLong(2, like.getLikerProfile().getId());
+            preparedStatement.setLong(1, postId);
+            preparedStatement.setLong(2, likerId);
             preparedStatement.setLong(3, like.getId());
             preparedStatement.executeUpdate();
             return null;

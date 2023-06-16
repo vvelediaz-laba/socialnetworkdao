@@ -8,19 +8,15 @@ import com.solvd.socialnetworkdao.services.*;
 import java.util.List;
 
 public class PostService implements IPostService {
-    private final IProfileDAO profileDAO = new ProfileDAO();
-    private final IProfileService profileService = new ProfileService();
     private final IPostDAO postDAO = new PostDAO();
     private final ILikeDAO likeDAO =  new LikeDAO();
-    private final ILikeService likeService = new LikeService();
     private final ICommentDAO commentDAO = new CommentDAO();
-    private final ICommentService commentService = new CommentService();
     private final IPhotoDAO photoDAO = new PhotoDAO();
-    private final IPhotoService photoService = new PhotoService();
+    private final IProfileTagDAO profileTagDAO = new ProfileTagDAO();
 
     @Override
-    public void insert(Post post) {
-        postDAO.insert(post);
+    public void insert(Post post, long profileId) {
+        postDAO.insert(post, profileId);
     }
 
     @Override
@@ -40,8 +36,8 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void update(Post post) {
-        postDAO.update(post);
+    public void update(Post post, long profileId) {
+        postDAO.update(post, profileId);
     }
 
     @Override
@@ -50,27 +46,17 @@ public class PostService implements IPostService {
     }
 
     public void setValues(Post post) {
-        Profile profile = profileDAO.getByPostId(post.getId());
-        profile = profileService.getById(profile.getId());
-        post.setPosterProfile(profile);
-        
         List<Like> likes = likeDAO.getLikesByPostId(post.getId());
-        for(Like like : likes){
-            like = likeService.getById(like.getId());
-        }
 
         List<Comment> comments = commentDAO.getCommentsByPostId(post.getId());
-        for(Comment comment : comments){
-            comment = commentService.getById(comment.getId());
-        }
 
         List<Photo> photos = photoDAO.getPhotosByPostId(post.getId());
-        for(Photo photo : photos){
-            photo = photoService.getById(photo.getId());
-        }
+
+        List<ProfileTag> profileTags = profileTagDAO.getProfileTagsByPostId(post.getId());
 
         post.setLikes(likes);
         post.setComments(comments);
         post.setPhotos(photos);
+        post.setTags(profileTags);
     }
 }
