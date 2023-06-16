@@ -10,12 +10,13 @@ import java.util.List;
 
 public class ProfileTagDAO extends DAO implements IProfileTagDAO {
     @Override
-    public void insert(ProfileTag profileTag) {
+    public void insert(ProfileTag profileTag, long taggedPost, long taggedProfileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO Profile_Tag (tagged_post_id, tagged_profile_id) VALUES (?, ?)");
-            preparedStatement.setLong(1, profileTag.getTaggedPost().getId());
-            preparedStatement.setLong(2, profileTag.getTaggedProfile().getId());
+                    "INSERT INTO Profile_Tag (id, tagged_post_id, tagged_profile_id) VALUES (?, ?, ?)");
+            preparedStatement.setLong(1, profileTag.getId());
+            preparedStatement.setLong(2, taggedPost);
+            preparedStatement.setLong(3, taggedProfileId);
             preparedStatement.executeUpdate();
             return null;
         });
@@ -41,12 +42,12 @@ public class ProfileTagDAO extends DAO implements IProfileTagDAO {
     }
 
     @Override
-    public void update(ProfileTag profileTag) {
+    public void update(ProfileTag profileTag, long taggedPost, long taggedProfileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE Profile_Tag SET tagged_post_id=?, tagged_profile_id=? WHERE id=?");
-            preparedStatement.setLong(1, profileTag.getTaggedPost().getId());
-            preparedStatement.setLong(2, profileTag.getTaggedProfile().getId());
+            preparedStatement.setLong(1, taggedPost);
+            preparedStatement.setLong(2, taggedProfileId);
             preparedStatement.setLong(3, profileTag.getId());
             preparedStatement.executeUpdate();
             return null;
@@ -66,9 +67,9 @@ public class ProfileTagDAO extends DAO implements IProfileTagDAO {
     }
 
     @Override
-    public List<ProfileTag> getProfileTagsByTaggedProfileId(long id) {
+    public List<ProfileTag> getProfileTagsByPostId(long id) {
         return executeWithConnection(connection -> {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Profile_Tag WHERE tagged_profile_id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Profile_Tag WHERE tagged_post_id");
             preparedStatement.setLong(1, id);
             return createProfileTagList(preparedStatement);
         });

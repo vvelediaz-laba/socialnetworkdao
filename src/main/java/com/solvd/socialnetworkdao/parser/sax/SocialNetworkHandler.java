@@ -1,7 +1,6 @@
 package com.solvd.socialnetworkdao.parser.sax;
 
 import com.solvd.socialnetworkdao.*;
-import com.solvd.socialnetworkdao.services.impl.jdbc.ProfileService;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SocialNetworkHandler extends DefaultHandler {
+    private static final DateAdapter adapter = new DateAdapter();
     private String currentValue;
     private User user;
     private Profile profile;
@@ -73,13 +73,13 @@ public class SocialNetworkHandler extends DefaultHandler {
                 user.setPassword(currentValue);
                 break;
             case "registration_date":
-                user.setRegistrationDate(SQLDateUtil.toSQLDate(currentValue));
+                user.setRegistrationDate(adapter.unmarshal(currentValue));
                 break;
             case "full_name":
                 profile.setFullName(currentValue);
                 break;
             case "date_of_birth":
-                profile.setDateOfBirth(SQLDateUtil.toSQLDate(currentValue));
+                profile.setDateOfBirth(adapter.unmarshal(currentValue));
                 break;
             case "gender":
                 profile.setGender(currentValue);
@@ -88,8 +88,8 @@ public class SocialNetworkHandler extends DefaultHandler {
                 profile.setBio(currentValue);
                 break;
             case "date_created":
-                if(isPost) post.setDateCreated(SQLDateUtil.toSQLDate(currentValue));
-                if(isComment) comment.setDateCreated(SQLDateUtil.toSQLDate(currentValue));
+                if(isPost) post.setDateCreated(adapter.unmarshal(currentValue));
+                if(isComment) comment.setDateCreated(adapter.unmarshal(currentValue));
                 break;
             case "content":
                 if(isPost) post.setContent(currentValue);
@@ -97,15 +97,7 @@ public class SocialNetworkHandler extends DefaultHandler {
                 if(isMessage) message.setContent(currentValue);
                 break;
             case "date_sent":
-                message.setDateSent(SQLDateUtil.toSQLDate(currentValue));
-                break;
-            case "author_profile_id":
-                Profile author = new ProfileService().getById(Long.parseLong(currentValue));
-                comment.setAuthorProfile(author);
-                break;
-            case "receiver_profile_id":
-                Profile receiver = new ProfileService().getById(Long.parseLong(currentValue));
-                message.setReceiver(receiver);
+                message.setDateSent(adapter.unmarshal(currentValue));
                 break;
         }
     }
@@ -120,7 +112,7 @@ public class SocialNetworkHandler extends DefaultHandler {
         messages.add(message);
 
         post.setComments(comments);
-        profile.setMessages(messages);
+        profile.setOutgoingMessages(messages);
         profile.setPosts(posts);
 
         user.setProfile(profile);

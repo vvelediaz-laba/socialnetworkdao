@@ -3,8 +3,6 @@ package com.solvd.socialnetworkdao;
 public class Friendship {
     private Long id;
     private String status;
-    private Profile requestedProfile;
-    private Profile requesterProfile;
 
     public Long getId() {
         return id;
@@ -20,21 +18,5 @@ public class Friendship {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Profile getRequestedProfile() {
-        return requestedProfile;
-    }
-
-    public void setRequestedProfile(Profile requestedProfile) {
-        this.requestedProfile = requestedProfile;
-    }
-
-    public Profile getRequesterProfile() {
-        return requesterProfile;
-    }
-
-    public void setRequesterProfile(Profile requesterProfile) {
-        this.requesterProfile = requesterProfile;
     }
 }

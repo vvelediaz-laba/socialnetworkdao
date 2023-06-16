@@ -7,3 +7,21 @@
 [ERROR] 2023-06-13 08:11:08.664 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
 [ERROR] 2023-06-13 08:20:31.487 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
 [ERROR] 2023-06-13 08:21:56.372 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-15 08:53:52.777 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-15 12:05:07.211 [main] DAO - Cannot add or update a child row: a foreign key constraint fails (`social_network`.`user`, CONSTRAINT `fk_User_Profile` FOREIGN KEY (`user_profile_id`) REFERENCES `profile` (`id`))
+[ERROR] 2023-06-15 12:07:47.813 [main] DAO - Cannot add or update a child row: a foreign key constraint fails (`social_network`.`user`, CONSTRAINT `fk_User_Profile` FOREIGN KEY (`user_profile_id`) REFERENCES `profile` (`id`))
+[ERROR] 2023-06-15 12:10:25.440 [main] DAO - Cannot add or update a child row: a foreign key constraint fails (`social_network`.`user`, CONSTRAINT `fk_User_Profile` FOREIGN KEY (`user_profile_id`) REFERENCES `profile` (`id`))
+[ERROR] 2023-06-15 12:58:45.416 [main] DAO - Table 'social_network.photoalbum' doesn't exist
+[ERROR] 2023-06-15 13:00:34.981 [main] DAO - Table 'social_network.photoalbum' doesn't exist
+[ERROR] 2023-06-15 13:02:35.787 [main] DAO - Table 'social_network.photoalbum' doesn't exist
+[ERROR] 2023-06-15 13:02:35.799 [main] DAO - Parameter index out of range (1 > number of parameters, which is 0).
+[ERROR] 2023-06-15 13:03:06.040 [main] DAO - Table 'social_network.photoalbum' doesn't exist
+[ERROR] 2023-06-15 13:03:06.049 [main] DAO - Parameter index out of range (1 > number of parameters, which is 0).
+[ERROR] 2023-06-15 13:03:31.004 [main] DAO - Table 'social_network.photoalbum' doesn't exist
+[ERROR] 2023-06-15 13:03:31.014 [main] DAO - Parameter index out of range (1 > number of parameters, which is 0).
+[ERROR] 2023-06-15 13:06:34.191 [main] DAO - Table 'social_network.photoalbum' doesn't exist
+[ERROR] 2023-06-15 13:06:34.201 [main] DAO - Parameter index out of range (1 > number of parameters, which is 0).
+[ERROR] 2023-06-15 15:47:01.751 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-15 16:00:29.967 [main] UserToXml - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-15 16:01:51.417 [main] XmlToUser - 1 counts of IllegalAnnotationExceptions
+[ERROR] 2023-06-15 16:05:30.816 [main] UserToXml - 1 counts of IllegalAnnotationExceptions

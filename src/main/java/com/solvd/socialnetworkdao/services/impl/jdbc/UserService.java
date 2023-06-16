@@ -13,7 +13,6 @@ public class UserService implements IService<User> {
     private final ProfileDAO profileDAO = new ProfileDAO();
     private final ProfileService profileService = new ProfileService();
 
-    @Override
     public void insert(User user) {
         userDAO.insert(user);
     }
@@ -33,7 +32,6 @@ public class UserService implements IService<User> {
         return users;
     }
 
-    @Override
     public void update(User user) {
         userDAO.update(user);
     }

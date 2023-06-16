@@ -12,12 +12,12 @@ import java.util.List;
 public class CommentDAO extends DAO implements ICommentDAO {
 
     @Override
-    public void insert(Comment comment) {
+    public void insert(Comment comment, long postId, long authorId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Comment (id, author_profile_id, commented_post_id, content, date_created) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setLong(1, comment.getId());
-            preparedStatement.setLong(2, comment.getAuthorProfile().getId());
-            preparedStatement.setLong(3, comment.getCommentedPost().getId());
+            preparedStatement.setLong(2, authorId);
+            preparedStatement.setLong(3, postId);
             preparedStatement.setString(4, comment.getContent());
             preparedStatement.setDate(5, comment.getDateCreated());
 
@@ -45,11 +45,11 @@ public class CommentDAO extends DAO implements ICommentDAO {
     }
 
     @Override
-    public void update(Comment comment) {
+    public void update(Comment comment, long profileId, long authorId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Comment SET author_profile_id=?, commented_post_id=?, content=?, date_created=? WHERE id=?");
-            preparedStatement.setLong(1, comment.getAuthorProfile().getId());
-            preparedStatement.setLong(2, comment.getCommentedPost().getId());
+            preparedStatement.setLong(1, authorId);
+            preparedStatement.setLong(2, profileId);
             preparedStatement.setString(3, comment.getContent());
             preparedStatement.setDate(4, comment.getDateCreated());
             preparedStatement.setLong(5, comment.getId());

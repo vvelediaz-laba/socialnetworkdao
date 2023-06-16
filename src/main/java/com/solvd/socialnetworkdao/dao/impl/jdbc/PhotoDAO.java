@@ -14,12 +14,12 @@ import java.util.List;
 public class PhotoDAO extends DAO implements IPhotoDAO {
 
     @Override
-    public void insert(Photo photo) {
+    public void insert(Photo photo, long albumId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO Photo (id, photo_album_id, content, caption, upload_date) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setLong(1, photo.getId());
-            preparedStatement.setLong(2, photo.getPhotoAlbum().getId());
+            preparedStatement.setLong(2, albumId);
             preparedStatement.setBlob(3, photo.getContent());
             preparedStatement.setString(4, photo.getCaption());
             preparedStatement.setDate(5, new Date(photo.getUploadDate().getTime()));
@@ -64,11 +64,11 @@ public class PhotoDAO extends DAO implements IPhotoDAO {
     }
 
     @Override
-    public void update(Photo photo) {
+    public void update(Photo photo, long albumId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE Photo SET photo_album_id=?, content=?, caption=?, upload_date=? WHERE id=?");
-            preparedStatement.setLong(1, photo.getPhotoAlbum().getId());
+            preparedStatement.setLong(1, albumId);
             preparedStatement.setBlob(2, photo.getContent());
             preparedStatement.setString(3, photo.getCaption());
             preparedStatement.setDate(4, new Date(photo.getUploadDate().getTime()));
@@ -120,7 +120,6 @@ public class PhotoDAO extends DAO implements IPhotoDAO {
         Photo photo = new Photo();
         if(resultSet.next()){
             photo.setId(resultSet.getLong("id"));
-            photo.setPhotoAlbum(new PhotoAlbumDAO().getById(resultSet.getLong("photo_album_id")));
             photo.setContent(resultSet.getBlob("content"));
             photo.setCaption(resultSet.getString("caption"));
             photo.setUploadDate(resultSet.getDate("upload_date"));

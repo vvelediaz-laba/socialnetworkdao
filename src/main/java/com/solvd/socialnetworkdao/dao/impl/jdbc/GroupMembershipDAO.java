@@ -11,14 +11,14 @@ import java.util.List;
 
 public class GroupMembershipDAO extends DAO implements IGroupMembershipDAO {
     @Override
-    public void insert(GroupMembership groupMembership) {
+    public void insert(GroupMembership groupMembership, long groupMemberProfileId, long groupId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO Group_Membership (id, member_profile_id, role, group_id) VALUES (?, ?, ?, ?)");
             preparedStatement.setLong(1, groupMembership.getId());
-            preparedStatement.setLong(2, groupMembership.getMemberProfile().getId());
+            preparedStatement.setLong(2, groupMemberProfileId);
             preparedStatement.setString(3, groupMembership.getRole());
-            preparedStatement.setLong(4, groupMembership.getGroup().getId());
+            preparedStatement.setLong(4, groupId);
             preparedStatement.executeUpdate();
             return null;
         });
@@ -43,13 +43,13 @@ public class GroupMembershipDAO extends DAO implements IGroupMembershipDAO {
     }
 
     @Override
-    public void update(GroupMembership groupMembership) {
+    public void update(GroupMembership groupMembership, long groupMemberProfileId, long groupId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE Group_Membership SET member_profile_id=?, role=?, group_id=? WHERE id=?");
-            preparedStatement.setLong(1, groupMembership.getMemberProfile().getId());
+            preparedStatement.setLong(1, groupMemberProfileId);
             preparedStatement.setString(2, groupMembership.getRole());
-            preparedStatement.setLong(3, groupMembership.getGroup().getId());
+            preparedStatement.setLong(3, groupId);
             preparedStatement.setLong(4, groupMembership.getId());
             preparedStatement.executeUpdate();
             return null;
@@ -102,9 +102,11 @@ public class GroupMembershipDAO extends DAO implements IGroupMembershipDAO {
 
     private List<GroupMembership> createGroupMembershipList(PreparedStatement preparedStatement) throws SQLException{
         List<GroupMembership> groupMemberships = new ArrayList<>();
-        ResultSet resultSet = preparedStatement.getResultSet();
+        ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
-            GroupMembership groupMembership = createGroupMembership(resultSet);
+            GroupMembership groupMembership = new GroupMembership();
+            groupMembership.setId(resultSet.getLong("id"));
+            groupMembership.setRole(resultSet.getString("role"));
             groupMemberships.add(groupMembership);
         }
         return groupMemberships;

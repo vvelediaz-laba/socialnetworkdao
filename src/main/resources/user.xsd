@@ -25,13 +25,18 @@
                                                     <xs:element name="id" type="xs:unsignedByte" />
                                                     <xs:element name="date_created" type="xs:dateTime" />
                                                     <xs:element name="content" type="xs:string" />
-                                                    <xs:element name="comment">
+                                                    <xs:element name="comments">
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="id" type="xs:unsignedByte" />
-                                                                <xs:element name="author_profile_id" type="xs:unsignedByte" />
-                                                                <xs:element name="content" type="xs:string" />
-                                                                <xs:element name="date_created" type="xs:dateTime" />
+                                                                <xs:element name="comment">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="id" type="xs:unsignedByte" />
+                                                                            <xs:element name="content" type="xs:string" />
+                                                                            <xs:element name="date_created" type="xs:dateTime" />
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
@@ -50,7 +55,6 @@
                                                     <xs:element name="id" type="xs:unsignedByte" />
                                                     <xs:element name="content" type="xs:string" />
                                                     <xs:element name="date_sent" type="xs:dateTime" />
-                                                    <xs:element name="receiver_profile_id" type="xs:unsignedByte" />
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>

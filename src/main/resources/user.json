@@ -1,0 +1,34 @@
+{
+  "id": 1,
+  "email": "bobsmith@example.com",
+  "password": "pa$$word",
+  "registrationDate": "2023-06-12T00:00:00",
+  "profile": {
+    "id": 1,
+    "fullName": "Bob Smith",
+    "dateOfBirth": "1990-01-01",
+    "gender": "Male",
+    "bio": "Sample bio",
+    "posts": [
+      {
+        "id": 1,
+        "dateCreated": "2023-06-12",
+        "content": "Sample post content",
+        "comments": [
+          {
+            "id": 1,
+            "content": "Sample comment",
+            "dateCreated": "2023-06-12"
+          }
+        ]
+      }
+    ],
+    "messages": [
+      {
+        "id": 1,
+        "content": "Hello! How are you?",
+        "dateSent": "2023-06-12"
+      }
+    ]
+  }
+}

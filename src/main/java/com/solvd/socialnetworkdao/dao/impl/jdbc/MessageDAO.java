@@ -11,14 +11,14 @@ import java.util.List;
 public class MessageDAO extends DAO implements IMessageDAO {
 
     @Override
-    public void insert(Message message) {
+    public void insert(Message message, long senderProfileId, long receiverProfileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Message (id, content, sender_profile_id, date_sent, receiver_profile_id) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setLong(1, message.getId());
             preparedStatement.setString(2, message.getContent());
-            preparedStatement.setLong(3, message.getSender().getId());
+            preparedStatement.setLong(3, senderProfileId);
             preparedStatement.setDate(4, message.getDateSent());
-            preparedStatement.setLong(5, message.getReceiver().getId());
+            preparedStatement.setLong(5, receiverProfileId);
             preparedStatement.executeUpdate();
             return null;
         });
@@ -43,14 +43,14 @@ public class MessageDAO extends DAO implements IMessageDAO {
     }
 
     @Override
-    public void update(Message message) {
+    public void update(Message message, long senderProfileId, long receiverProfileId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.
                     prepareStatement("UPDATE Message SET content=?, sender_profile_id=?, date_sent=?, receiver_profile_id=? WHERE id=?");
             preparedStatement.setString(1, message.getContent());
-            preparedStatement.setLong(2, message.getSender().getId());
+            preparedStatement.setLong(2, senderProfileId);
             preparedStatement.setDate(3, message.getDateSent());
-            preparedStatement.setLong(4, message.getReceiver().getId());
+            preparedStatement.setLong(4, receiverProfileId);
             preparedStatement.setLong(5, message.getId());
             preparedStatement.executeUpdate();
             return null;
@@ -68,9 +68,18 @@ public class MessageDAO extends DAO implements IMessageDAO {
     }
 
     @Override
-    public List<Message> getMessagesByProfileId(long id) {
+    public List<Message> getMessagesBySenderProfileId(long id) {
         return executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Message WHERE sender_profile_id=?");
+            preparedStatement.setLong(1, id);
+            return createMessageList(preparedStatement);
+        });
+    }
+
+    @Override
+    public List<Message> getMessagesByReceiverProfileId(long id) {
+        return executeWithConnection(connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Message WHERE receiver_profile_id=?");
             preparedStatement.setLong(1, id);
             return createMessageList(preparedStatement);
         });

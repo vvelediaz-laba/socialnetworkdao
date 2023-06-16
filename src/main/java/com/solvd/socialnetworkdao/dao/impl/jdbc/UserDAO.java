@@ -1,12 +1,13 @@
 package com.solvd.socialnetworkdao.dao.impl.jdbc;
 
 import com.solvd.socialnetworkdao.User;
-import com.solvd.socialnetworkdao.dao.IDAO;
+import com.solvd.socialnetworkdao.dao.IUserDAO;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO extends DAO implements IDAO<User> {
+public class UserDAO extends DAO implements IUserDAO {
     @Override
     public void insert(User user) {
         executeWithConnection(connection -> {

@@ -5,7 +5,6 @@ import java.util.List;
 
 public class PhotoAlbum {
     private Long id;
-    private Profile albumProfile;
     private String photoAlbumName;
     private Date dateCreated;
     private List<Photo> photos;
@@ -16,14 +15,6 @@ public class PhotoAlbum {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Profile getAlbumProfile() {
-        return albumProfile;
-    }
-
-    public void setAlbumProfile(Profile albumProfile) {
-        this.albumProfile = albumProfile;
     }
 
     public String getPhotoAlbumName() {
@@ -48,5 +39,13 @@ public class PhotoAlbum {
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+    }
+
+    @Override
+    public String toString() {
+        return "PhotoAlbum [id=" + id +
+                ", photoAlbumName='" + photoAlbumName + "'" +
+                ", dateCreated=" + dateCreated +
+                "]";
     }
 }

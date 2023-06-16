@@ -3,6 +3,8 @@ package com.solvd.socialnetworkdao.dao;
 import com.solvd.socialnetworkdao.Profile;
 
 public interface IProfileDAO extends IDAO<Profile> {
+    void insert(Profile profile);
+    void update(Profile profile);
     Profile getByUserId(long id);
     Profile getByCommentId(long id);
     Profile getByFriendshipId(long id);
