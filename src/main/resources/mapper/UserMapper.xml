@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.mapper.UserMapper">
+
+    <resultMap id="userResultMap" type="com.solvd.socialnetworkdao.User">
+        <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+        <result property="registrationDate" column="registration_date" jdbcType="DATE"/>
+        <association property="profile" javaType="com.solvd.socialnetworkdao.Profile">
+            <id property="id" column="profile_id"/>
+            <result property="fullName" column="full_name"/>
+            <result property="dateOfBirth" column="date_of_birth"/>
+            <result property="gender" column="gender"/>
+            <result property="bio" column="bio"/>
+            <collection property="photoAlbums" ofType="com.solvd.socialnetworkdao.PhotoAlbum">
+                <!-- Mapping for PhotoAlbum properties -->
+            </collection>
+            <collection property="outgoingFriendships" ofType="com.solvd.socialnetworkdao.Friendship">
+                <!-- Mapping for Friendship properties -->
+            </collection>
+            <collection property="incomingFriendships" ofType="com.solvd.socialnetworkdao.Friendship">
+                <!-- Mapping for Friendship properties -->
+            </collection>
+            <collection property="posts" ofType="com.solvd.socialnetworkdao.Post">
+                <!-- Mapping for Post properties -->
+            </collection>
+            <collection property="profileTags" ofType="com.solvd.socialnetworkdao.ProfileTag">
+                <!-- Mapping for ProfileTag properties -->
+            </collection>
+            <collection property="groupMemberships" ofType="com.solvd.socialnetworkdao.GroupMembership">
+                <!-- Mapping for GroupMembership properties -->
+            </collection>
+            <collection property="outgoingMessages" ofType="com.solvd.socialnetworkdao.Message">
+                <!-- Mapping for Message properties -->
+            </collection>
+            <collection property="incomingMessages" ofType="com.solvd.socialnetworkdao.Message">
+                <!-- Mapping for Message properties -->
+            </collection>
+            <collection property="likes" ofType="com.solvd.socialnetworkdao.Like">
+                <!-- Mapping for Like properties -->
+            </collection>
+        </association>
+    </resultMap>
+
+    <select id="selectUserById" resultMap="userResultMap">
+        SELECT * FROM User WHERE id = #{id}
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO User (id, email, password, registration_date, user_profile_id)
+        VALUES (#{id}, #{email}, #{password}, #{registrationDate, jdbcType=DATE}, #{profile.id})
+    </insert>
+
+    <update id="updateUser">
+        UPDATE User SET email = #{email}, password = #{password},
+                         registration_date = #{registrationDate, jdbcType=DATE}, user_profile_id = #{profile.id}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM User WHERE id = #{id}
+    </delete>
+
+    <select id="getAllUsers" resultMap="userResultMap">
+        SELECT * FROM User
+    </select>
+
+</mapper>

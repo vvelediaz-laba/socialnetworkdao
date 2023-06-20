@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.GroupMembershipMapper">
+
+    <resultMap id="groupMembershipResultMap" type="com.solvd.socialnetworkdao.GroupMembership">
+        <id property="id" column="id"/>
+        <result property="role" column="role"/>
+    </resultMap>
+
+    <select id="getGroupMembershipById" resultMap="groupMembershipResultMap">
+        SELECT * FROM Group_Membership
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAllGroupMemberships" resultMap="groupMembershipResultMap">
+        SELECT * FROM Group_Membership
+    </select>
+
+    <insert id="insertGroupMembership" parameterType="com.solvd.socialnetworkdao.GroupMembership">
+        INSERT INTO Group_Membership (id, role, member_profile_id, group_id)
+        VALUES (#{id}, #{role}, #{memberProfileId}, #{groupId})
+    </insert>
+
+
+    <update id="updateGroupMembership" parameterType="com.solvd.socialnetworkdao.GroupMembership">
+        UPDATE Group_Membership
+        SET role = #{role},
+            member_profile_id = #{memberProfileId},
+            group_id = #{groupId}
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="deleteGroupMembership" parameterType="com.solvd.socialnetworkdao.GroupMembership">
+        DELETE FROM Group_Membership
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

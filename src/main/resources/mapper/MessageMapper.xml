@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.MessageMapper">
+
+    <resultMap id="messageResultMap" type="com.solvd.socialnetworkdao.Message">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="dateSent" column="date_sent"/>
+    </resultMap>
+
+    <insert id="insertMessage" parameterType="com.solvd.socialnetworkdao.Message">
+        INSERT INTO Message (id, content, date_sent, sender_profile_id, receiver_profile_id)
+        VALUES (#{id}, #{content}, #{dateSent}, #{senderProfileId}, #{receiverProfileId})
+    </insert>
+
+    <select id="getMessageById" parameterType="Long" resultMap="messageResultMap">
+        SELECT id, content, date_sent
+        FROM Message
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAllMessages" resultMap="messageResultMap">
+        SELECT *
+        FROM Message
+    </select>
+
+    <update id="updateMessage" parameterType="com.solvd.socialnetworkdao.Message">
+        UPDATE Message
+        SET content = #{content}, date_sent = #{dateSent},
+            sender_profile_id = #{senderProfileId}, receiver_profile_id = #{receiverProfileId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteMessage" parameterType="Long">
+        DELETE FROM Message
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

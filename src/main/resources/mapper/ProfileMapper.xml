@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.ProfileMapper">
+
+    <resultMap id="profileResultMap" type="com.solvd.socialnetworkdao.Profile">
+        <id property="id" column="id"/>
+        <result property="fullName" column="full_name"/>
+        <result property="dateOfBirth" column="date_of_birth"/>
+        <result property="gender" column="gender"/>
+        <result property="bio" column="bio"/>
+        <collection property="photoAlbums" ofType="com.solvd.socialnetworkdao.PhotoAlbum" resultMap="com.solvd.socialnetworkdao.mapper.PhotoAlbumMapper.photoAlbumResultMap"/>
+        <collection property="outgoingFriendships" ofType="com.solvd.socialnetworkdao.Friendship" resultMap="com.solvd.socialnetworkdao.mapper.FriendshipMapper.friendshipResultMap"/>
+        <collection property="incomingFriendships" ofType="com.solvd.socialnetworkdao.Friendship" resultMap="com.solvd.socialnetworkdao.mapper.FriendshipMapper.friendshipResultMap"/>
+        <collection property="posts" ofType="com.solvd.socialnetworkdao.Post" resultMap="com.solvd.socialnetworkdao.mapper.PostMapper.postResultMap"/>
+        <collection property="profileTags" ofType="com.solvd.socialnetworkdao.ProfileTag" resultMap="com.solvd.socialnetworkdao.mapper.ProfileTagMapper.profileTagResultMap"/>
+        <collection property="groupMemberships" ofType="com.solvd.socialnetworkdao.GroupMembership" resultMap="com.solvd.socialnetworkdao.mapper.GroupMembershipMapper.groupMembershipRessultMap"/>
+        <collection property="outgoingMessages" ofType="com.solvd.socialnetworkdao.Message" resultMap="com.solvd.socialnetworkdao.mapper.MessageMapper.messageResultMap"/>
+        <collection property="incomingMessages" ofType="com.solvd.socialnetworkdao.Message" resultMap="com.solvd.socialnetworkdao.mapper.MessageMapper.messageResultMap"/>
+        <collection property="likes" ofType="com.solvd.socialnetworkdao.Like" resultMap="com.solvd.socialnetworkdao.mapper.LikeMapper.likeResultMap"/>
+    </resultMap>
+
+    <select id="getProfileById" resultMap="profileResultMap">
+        SELECT *
+
+        FROM Profile
+        WHERE id = #{id}
+    </select>
+    
+    <select id="getAllProfiles" resultMap="profileResultMap">
+        SELECT *
+
+        FROM Profile
+    </select>
+
+
+    <insert id="insertProfile" parameterType="com.solvd.socialnetworkdao.Profile">
+        INSERT INTO Profile (id, full_name, date_of_birth, gender, bio)
+        VALUES (#{id}, #{fullName}, #{dateOfBirth}, #{gender}, #{bio})
+    </insert>
+
+    <update id="updateProfile" parameterType="com.solvd.socialnetworkdao.Profile">
+        UPDATE Profile
+        SET full_name = #{fullName}, date_of_birth = #{dateOfBirth}, gender = #{gender}, bio = #{bio}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteProfile" parameterType="long">
+        DELETE FROM Profile
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

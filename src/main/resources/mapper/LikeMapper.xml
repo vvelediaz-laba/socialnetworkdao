@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.LikeMapper">
+
+    <resultMap id="likeResultMap" type="com.solvd.socialnetworkdao.Like">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="getLikeById" resultMap="likeResultMap">
+        SELECT * FROM `Like`
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAllLikes" resultMap="likeResultMap">
+        SELECT * FROM `Like`
+    </select>
+
+    <insert id="insertLike" parameterType="com.solvd.socialnetworkdao.Like">
+        INSERT INTO `Like` (id, liked_post_id, liker_profile_id)
+        VALUES (#{id}, #{likedPostId}, #{likerPostId})
+    </insert>
+
+    <update id="updateLike" parameterType="com.solvd.socialnetworkdao.Like">
+        UPDATE `Like`
+        SET liked_post_id = #{likedPostId}, liker_profile_id = #{likerPostId}
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="deleteLike" parameterType="com.solvd.socialnetworkdao.Like">
+        DELETE FROM `Like`
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

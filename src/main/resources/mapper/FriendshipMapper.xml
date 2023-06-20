@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.FriendshipMapper">
+
+    <resultMap id="friendshipResultMap" type="com.solvd.socialnetworkdao.Friendship">
+        <id property="id" column="id"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="getFriendshipById" resultMap="friendshipResultMap">
+        SELECT * FROM Friendship
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAllFriendships" resultMap="friendshipResultMap">
+        SELECT * FROM Friendship
+    </select>
+
+    <insert id="insertFriendship" parameterType="com.solvd.socialnetworkdao.Friendship">
+        INSERT INTO Friendship (id, status, requester_profile_id, requested_profile_id)
+        VALUES (#{id}, #{status}, #{requesterProfileId}, #{requestedProfileId})
+    </insert>
+
+    <update id="updateFriendship" parameterType="com.solvd.socialnetworkdao.Friendship">
+        UPDATE Friendship
+        SET status = #{status},
+            requester_profile_id = #{requesterProfileId},
+            requested_profile_id = #{requestedProfileId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteFriendship" parameterType="com.solvd.socialnetworkdao.Friendship">
+        DELETE FROM Friendship
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

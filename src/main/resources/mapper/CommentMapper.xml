@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.socialnetworkdao.CommentMapper">
+
+    <resultMap id="commentResultMap" type="com.solvd.socialnetworkdao.Comment">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="creationDate" column="date_created"/>
+    </resultMap>
+
+    <select id="getCommentById" resultMap="commentResultMap">
+        SELECT * FROM Comment
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAllComments" resultMap="commentResultMap">
+        SELECT * FROM Comment
+    </select>
+
+    <select id="getCommentsByPostId" resultMap="commentResultMap">
+        SELECT * FROM Comment WHERE commented_post_id=?
+    </select>
+
+    <insert id="insertComment" parameterType="com.solvd.socialnetworkdao.Comment">
+        INSERT INTO Comment (id, content, date_created, author_profile_id, commented_post_id)
+        VALUES (#{id}, #{content}, #{creationDate}, #{authorProfileId}, #{commentedPostId})
+    </insert>
+
+    <update id="updateComment" parameterType="com.solvd.socialnetworkdao.Comment">
+        UPDATE Comment
+        SET content = #{content},
+        date_created = #{creationDate},
+        author_profile_id = #{authorProfileId},
+        commented_post_id = #{commentedPostId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteComment" parameterType="com.solvd.socialnetworkdao.Comment">
+        DELETE FROM Comment
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

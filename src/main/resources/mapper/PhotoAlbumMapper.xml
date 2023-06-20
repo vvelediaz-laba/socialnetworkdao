@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.PhotoAlbumMapper">
+
+    <resultMap id="photoAlbumResultMap" type="com.solvd.socialnetworkdao.PhotoAlbum">
+        <id property="id" column="id"/>
+        <result property="photoAlbumName" column="photo_album_name"/>
+        <result property="dateCreated" column="date_created"/>
+        <collection property="photos" ofType="com.solvd.socialnetworkdao.Photo" resultMap="com.solvd.socialnetworkdao.mapper.PhotoMapper.photoResultMap"/>
+    </resultMap>
+
+    <select id="getPhotoAlbumById" resultMap="photoAlbumResultMap">
+        SELECT PA.id as id,
+               PA.photo_album_name as photo_album_name,
+               PA.date_created as date_created,
+               P.content as content,
+               P.caption as caption,
+               P.upload_date as upload_date from Photo_Album PA
+               JOIN Photo P ON PA.id = P.photo_album_id
+               WHERE PA.id = #{id}
+    </select>
+
+    <insert id="insertPhotoAlbum" parameterType="com.solvd.socialnetworkdao.PhotoAlbum">
+        INSERT INTO Photo_Album (id, photo_album_name, date_created, album_profile_id)
+        VALUES (#{id}, #{photoAlbumName}, #{dateCreated}, #{albumProfileId})
+    </insert>
+
+    <select id="getAllPhotoAlbums" resultMap="photoAlbumResultMap">
+        SELECT *
+        FROM Photo_Album
+    </select>
+
+    <update id="updatePhotoAlbum" parameterType="com.solvd.socialnetworkdao.PhotoAlbum">
+        UPDATE Photo_Album
+        SET photo_album_name = #{photoAlbumName}, date_created = #{dateCreated}, album_profile_id = #{albumProfileId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletePhotoAlbum" parameterType="java.lang.Long">
+        DELETE FROM Photo_Album
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

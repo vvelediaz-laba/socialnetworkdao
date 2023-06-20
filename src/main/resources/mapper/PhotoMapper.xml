@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.socialnetworkdao.PhotoMapper">
+
+    <resultMap id="photoResultMap" type="com.solvd.socialnetworkdao.Photo">
+        <id property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="caption" column="caption"/>
+        <result property="uploadDate" column="upload_date"/>
+    </resultMap>
+
+    <insert id="insertPhoto" parameterType="com.solvd.socialnetworkdao.Photo">
+        INSERT INTO Photo (id, content, caption, upload_date, photo_album_id)
+        VALUES (#{id}, #{content}, #{caption}, #{uploadDate}, #{photoAlbumId})
+    </insert>
+
+    <select id="getPhotoById" parameterType="Long" resultMap="photoResultMap">
+        SELECT id, content, caption, upload_date
+        FROM Photo
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAllPhotos" resultMap="photoResultMap">
+        SELECT *
+        FROM Photo
+    </select>
+
+    <update id="updatePhoto" parameterType="com.solvd.socialnetworkdao.Photo">
+        UPDATE Photo
+        SET content = #{content}, caption = #{caption}, upload_date = #{uploadDate}, photo_album_id = #{photoAlbumId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletePhoto" parameterType="Long">
+        DELETE FROM Photo
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

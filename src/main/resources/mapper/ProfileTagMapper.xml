@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.socialnetworkdao.ProfileTagMapper">
+
+    <resultMap id="profileTagResultMap" type="com.solvd.socialnetworkdao.ProfileTag">
+        <id property="id" column="id"/>
+    </resultMap>
+
+    <select id="getAllProfileTags" resultMap="profileTagResultMap">
+        SELECT *
+        FROM Profile_Tag
+    </select>
+
+    <insert id="insertProfileTag">
+        INSERT INTO Profile_Tag (id, tagged_post_id, tagged_profile_id)
+        VALUES (#{id}, #{taggedPostId}, #{taggedProfileId})
+    </insert>
+
+    <update id="updateProfileTag">
+        UPDATE Profile_Tag
+        SET tagged_post_id = #{taggedPostId}, tagged_profile_id = #{taggedProfileId}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteProfileTag">
+        DELETE FROM Profile_Tag
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
