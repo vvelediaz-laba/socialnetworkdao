@@ -69,7 +69,7 @@ public class PhotoAlbumDAO extends DAO implements IPhotoAlbumDAO {
     @Override
     public PhotoAlbum getByPhotoId(long id) {
         return executeWithConnection(connection -> {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Photo_Album.* FROM Photo_Album JOIN Photo ON Photo_Album.id = Photo.photo_album.id WHERE Photo.id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Photo_Album.* FROM Photo_Album JOIN Photo ON Photo_Album.id = Photo.photo_album_id WHERE Photo.id = ?");
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             return createPhotoAlbum(resultSet);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.socialnetworkdao.ProfileMapper">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IProfileDAO">
 
     <resultMap id="profileResultMap" type="com.solvd.socialnetworkdao.Profile">
         <id property="id" column="id"/>
@@ -22,17 +22,58 @@
 
     <select id="getProfileById" resultMap="profileResultMap">
         SELECT *
-
         FROM Profile
         WHERE id = #{id}
     </select>
     
     <select id="getAllProfiles" resultMap="profileResultMap">
         SELECT *
-
         FROM Profile
     </select>
 
+    <select id="getByUserId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, User  WHERE Profile.id = User.user_profile_id AND User.id=?
+    </select>
+
+    <select id="getByCommentId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Comment WHERE Profile.id = Comment.author_profile_id AND Comment.id=?
+    </select>
+
+    <select id="getByFriendshipId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Friendship WHERE Profile.id = Friendship.requester_profile_id AND Friendship.id=?
+    </select>
+
+    <select id="getRequestedByFriendshipId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Friendship WHERE Profile.id = Friendship.requested_profile_id AND Friendship.id=?
+    </select>
+
+    <select id="getByGroupMembershipId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Group_Membership WHERE Profile.id = Group_Membership.member_profile_id AND Group_Membership.id=?
+    </select>
+
+    <select id="getByLikeId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, `Like` WHERE Profile.id = `Like`.liker_profile_id AND `Like`.id=?
+    </select>
+
+    <select id="getSenderByMessageId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Message WHERE Profile.id = Message.sender_profile_id AND Message.id=?
+    </select>
+
+    <select id="getReceiverByMessageId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Message WHERE Profile.id = Message.receiver_profile_id AND Message.id=?
+    </select>
+
+    <select id="getByPhotoAlbumId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Photo_Album WHERE Profile.id = Photo_Album.album_profile_id AND Photo_Album.id=?
+    </select>
+
+    <select id="getByPostId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Post WHERE Profile.id = Post.poster_profile_id AND Post.id=?
+    </select>
+
+    <select id="getByProfileTagId" resultMap="profileResultMap">
+        SELECT Profile.* FROM Profile, Profile_Tag WHERE Profile.id = Profile_Tag.tagged_profile_id AND Profile_Tag.id=?
+    </select>
 
     <insert id="insertProfile" parameterType="com.solvd.socialnetworkdao.Profile">
         INSERT INTO Profile (id, full_name, date_of_birth, gender, bio)

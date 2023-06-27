@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.solvd.socialnetworkdao.ProfileTagMapper">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IProfileDAO">
 
     <resultMap id="profileTagResultMap" type="com.solvd.socialnetworkdao.ProfileTag">
         <id property="id" column="id"/>
@@ -11,6 +11,14 @@
     <select id="getAllProfileTags" resultMap="profileTagResultMap">
         SELECT *
         FROM Profile_Tag
+    </select>
+
+    <select id="getProfileTagsByPostId" resultMap="profileTagResultMap">
+        SELECT * FROM Profile_Tag WHERE tagged_post_id
+    </select>
+
+    <select id="getProfileTagsByProfileId" resultMap="profileTagResultMap">
+        SELECT * FROM Profile_Tag WHERE tagged_profile_id=?
     </select>
 
     <insert id="insertProfileTag">

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.socialnetworkdao.mapper.UserMapper">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IUserDAO">
 
     <resultMap id="userResultMap" type="com.solvd.socialnetworkdao.User">
         <id property="id" column="id"/>
