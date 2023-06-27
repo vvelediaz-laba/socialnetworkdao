@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.socialnetworkdao.PhotoMapper">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IPhotoDAO">
 
     <resultMap id="photoResultMap" type="com.solvd.socialnetworkdao.Photo">
         <id property="id" column="id"/>
@@ -11,29 +11,45 @@
         <result property="uploadDate" column="upload_date"/>
     </resultMap>
 
-    <insert id="insertPhoto" parameterType="com.solvd.socialnetworkdao.Photo">
-        INSERT INTO Photo (id, content, caption, upload_date, photo_album_id)
-        VALUES (#{id}, #{content}, #{caption}, #{uploadDate}, #{photoAlbumId})
-    </insert>
-
-    <select id="getPhotoById" parameterType="Long" resultMap="photoResultMap">
+    <select id="getById" parameterType="Long" resultMap="photoResultMap">
         SELECT id, content, caption, upload_date
         FROM Photo
         WHERE id = #{id}
     </select>
 
-    <select id="getAllPhotos" resultMap="photoResultMap">
+    <select id="getAll" resultMap="photoResultMap">
         SELECT *
         FROM Photo
     </select>
 
-    <update id="updatePhoto" parameterType="com.solvd.socialnetworkdao.Photo">
+    <select id="getByPostPhotoId" resultMap="photoResultMap">
+        SELECT Photo.* FROM Photo JOIN Post_Photo ON Photo.id = Post_Photo.photo_id JOIN Post ON Post.id = Post_Photo.post_id WHERE Post.id = ?
+    </select>
+
+    <select id="getAssociatedPosts" resultMap="photoResultMap">
+        SELECT Post.* FROM POST JOIN Post_Photo ON Post.id = Post_Photo.post_id WHERE Post_Photo.photo_id = ?
+    </select>
+
+    <select id="getPhotosByPhotoAlbumId" resultMap="photoResultMap">
+        SELECT * FROM Photo WHERE Photo.photo_album_id=?
+    </select>
+
+    <select id="getPhotosByPostId" resultMap="photoResultMap">
+        SELECT Photo.* FROM Photo JOIN Post_Photo ON Photo.id = Post_Photo.photo_id JOIN Post ON Post.id = Post_Photo.post_id WHERE Post.id = ?
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.socialnetworkdao.Photo">
+        INSERT INTO Photo (id, content, caption, upload_date, photo_album_id)
+        VALUES (#{id}, #{content}, #{caption}, #{uploadDate}, #{photoAlbumId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.socialnetworkdao.Photo">
         UPDATE Photo
         SET content = #{content}, caption = #{caption}, upload_date = #{uploadDate}, photo_album_id = #{photoAlbumId}
         WHERE id = #{id}
     </update>
 
-    <delete id="deletePhoto" parameterType="Long">
+    <delete id="delete" parameterType="Long">
         DELETE FROM Photo
         WHERE id = #{id}
     </delete>

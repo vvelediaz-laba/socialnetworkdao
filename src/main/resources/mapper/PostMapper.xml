@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.socialnetworkdao.PostMapper">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IPostDAO">
 
     <resultMap id="postResultMap" type="com.solvd.socialnetworkdao.Post">
         <id property="id" column="post_id"/>
@@ -13,7 +13,7 @@
         <collection property="photos" ofType="com.solvd.socialnetworkdao.Photo" resultMap="com.solvd.socialnetworkdao.mapper.PhotoMapper.photoResultMap"/>
     </resultMap>
 
-    <select id="getPostById" resultMap="postResultMap">
+    <select id="getById" resultMap="postResultMap">
         SELECT P.id AS id,
                P.date_created AS date_created,
                P.content AS content,
@@ -32,23 +32,43 @@
         WHERE P.id = #{id}
     </select>
 
-    <select id="getAllPosts" resultMap="postResultMap">
+    <select id="getAll" resultMap="postResultMap">
         SELECT *
         FROM Post
     </select>
 
-    <insert id="insertPost" parameterType="com.solvd.socialnetworkdao.Post">
+    <select id="getPostsByProfileId" resultMap="postResultMap">
+        SELECT * FROM Post WHERE poster_profile_id=?
+    </select>
+
+    <select id="getByCommentId" resultMap="postResultMap">
+        SELECT Post.* FROM Post, Comment WHERE Post.id = Comment.commented_post_id AND Comment.id=?
+    </select>
+
+    <select id="getByLikeId" resultMap="postResultMap">
+        SELECT Post.* FROM Post, `Like` WHERE Post.id = `Like`.liked_post_id AND `Like`.id=?
+    </select>
+
+    <select id="getByPostPhotoId" resultMap="postResultMap">
+        SELECT Post.* FROM Post JOIN Post_Photo ON Post.id = Post_Photo.post_id WHERE Post_Photo.id=?
+    </select>
+
+    <select id="getByProfileTagId" resultMap="postResultMap">
+        SELECT Post.* FROM Post, Profile_Tag WHERE Post.id = Profile_Tag.tagged_post_id AND Profile_Tag.id=?
+    </select>
+
+    <insert id="insert" parameterType="com.solvd.socialnetworkdao.Post">
         INSERT INTO Post (id, poster_profile_id, date_created, content)
         VALUES (#{id}, #{posterProfileId}, #{dateCreated}, #{content})
     </insert>
 
-    <update id="updatePost" parameterType="com.solvd.socialnetworkdao.Post">
+    <update id="update" parameterType="com.solvd.socialnetworkdao.Post">
         UPDATE Post
         SET date_created = #{dateCreated}, content = #{content}
         WHERE id = #{id}
     </update>
 
-    <delete id="deletePost" parameterType="long">
+    <delete id="delete" parameterType="long">
         DELETE FROM Post
         WHERE id = #{id}
     </delete>

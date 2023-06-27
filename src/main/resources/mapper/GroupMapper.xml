@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.socialnetworkdao.GroupMapper">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IGroupDAO">
 
     <resultMap id="groupResultMap" type="com.solvd.socialnetworkdao.Group">
         <id property="id" column="id"/>
         <result property="groupName" column="group_name"/>
         <result property="description" column="description"/>
-        <collection property="groupMemberships" ofType="com.solvd.socialnetworkdao.GroupMembership"
+        <collection property="groupMemberships" ofType="com.solvd.socialnetworkdao.dao.IGroupMembershipDAO"
                     resultMap="com.solvd.socialnetworkdao.mapper.GroupMembershipMapper.groupMembershipResultMap"/>
     </resultMap>
 
-    <select id="getAllGroups" resultMap="groupResultMap">
+    <select id="getAll" resultMap="groupResultMap">
         SELECT *
         FROM `Group`
     </select>
 
-    <select id="getGroupById" resultMap="groupResultMap">
+    <select id="getById" resultMap="groupResultMap">
         SELECT G.id as id,
                G.group_name as group_name,
                GM.id as id,
@@ -24,19 +24,27 @@
         JOIN Group_Membership GM on G.id = GM.group_id
         WHERE G.id = #{id}
     </select>
+    
+    <select id="getByGroupMembershipId" resultMap="groupResultMap">
+        SELECT `Group`.*
+        FROM `Group`
+            JOIN Group_Membership
+                ON `Group`.id = Group_Membership.group_id
+        WHERE Group_Membership.id = ?
+    </select>
 
-    <insert id="insertGroup">
+    <insert id="insert">
         INSERT INTO `Group` (id, group_name, description)
         VALUES (#{id}, #{groupName}, #{description})
     </insert>
 
-    <update id="updateGroup">
+    <update id="update">
         UPDATE `Group`
         SET group_name = #{groupName}, description = #{description}
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteGroup">
+    <delete id="delete">
         DELETE FROM `Group`
         WHERE id = #{id}
     </delete>

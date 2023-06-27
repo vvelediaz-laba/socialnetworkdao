@@ -45,11 +45,11 @@ public class CommentDAO extends DAO implements ICommentDAO {
     }
 
     @Override
-    public void update(Comment comment, long profileId, long authorId) {
+    public void update(Comment comment, long postId, long authorId) {
         executeWithConnection(connection -> {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Comment SET author_profile_id=?, commented_post_id=?, content=?, date_created=? WHERE id=?");
             preparedStatement.setLong(1, authorId);
-            preparedStatement.setLong(2, profileId);
+            preparedStatement.setLong(2, postId);
             preparedStatement.setString(3, comment.getContent());
             preparedStatement.setDate(4, comment.getDateCreated());
             preparedStatement.setLong(5, comment.getId());

@@ -44,4 +44,13 @@ public class Comment {
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", dateCreated=" + dateCreated +
+                '}';
+    }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.socialnetworkdao.PhotoAlbumMapper">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IPhotoDAO">
 
     <resultMap id="photoAlbumResultMap" type="com.solvd.socialnetworkdao.PhotoAlbum">
         <id property="id" column="id"/>
@@ -9,7 +9,7 @@
         <collection property="photos" ofType="com.solvd.socialnetworkdao.Photo" resultMap="com.solvd.socialnetworkdao.mapper.PhotoMapper.photoResultMap"/>
     </resultMap>
 
-    <select id="getPhotoAlbumById" resultMap="photoAlbumResultMap">
+    <select id="getById" resultMap="photoAlbumResultMap">
         SELECT PA.id as id,
                PA.photo_album_name as photo_album_name,
                PA.date_created as date_created,
@@ -20,23 +20,35 @@
                WHERE PA.id = #{id}
     </select>
 
-    <insert id="insertPhotoAlbum" parameterType="com.solvd.socialnetworkdao.PhotoAlbum">
-        INSERT INTO Photo_Album (id, photo_album_name, date_created, album_profile_id)
-        VALUES (#{id}, #{photoAlbumName}, #{dateCreated}, #{albumProfileId})
-    </insert>
+    <select id="getByPhotoId" resultMap="photoAlbumResultMap">
+        SELECT Photo_Album.*
+        FROM Photo_Album
+        JOIN Photo ON Photo_Album.id = Photo.photo_album_id
+        WHERE Photo.id = #{id};
 
-    <select id="getAllPhotoAlbums" resultMap="photoAlbumResultMap">
+    </select>
+
+    <select id="getPhotoAlbumsByProfileId" resultMap="photoAlbumResultMap">
+        SELECT * FROM Photo_Album WHERE album_profile_id=?
+    </select>
+
+    <select id="getAll" resultMap="photoAlbumResultMap">
         SELECT *
         FROM Photo_Album
     </select>
 
-    <update id="updatePhotoAlbum" parameterType="com.solvd.socialnetworkdao.PhotoAlbum">
+    <insert id="insert" parameterType="com.solvd.socialnetworkdao.PhotoAlbum">
+        INSERT INTO Photo_Album (id, photo_album_name, date_created, album_profile_id)
+        VALUES (#{id}, #{photoAlbumName}, #{dateCreated}, #{albumProfileId})
+    </insert>
+
+    <update id="update" parameterType="com.solvd.socialnetworkdao.PhotoAlbum">
         UPDATE Photo_Album
         SET photo_album_name = #{photoAlbumName}, date_created = #{dateCreated}, album_profile_id = #{albumProfileId}
         WHERE id = #{id}
     </update>
 
-    <delete id="deletePhotoAlbum" parameterType="java.lang.Long">
+    <delete id="delete" parameterType="java.lang.Long">
         DELETE FROM Photo_Album
         WHERE id = #{id}
     </delete>
