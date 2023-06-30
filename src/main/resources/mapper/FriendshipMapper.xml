@@ -18,11 +18,11 @@
     </select>
 
     <select id="getFriendshipsBySenderProfileId" resultMap="friendshipResultMap">
-        SELECT * FROM Friendship WHERE requester_profile_id=?
+        SELECT * FROM Friendship WHERE requester_profile_id = #{id}
     </select>
 
     <select id="getFriendshipsByReceiverProfileId" resultMap="friendshipResultMap">
-        SELECT * FROM Friendship WHERE requested_profile_id=?
+        SELECT * FROM Friendship WHERE requested_profile_id = #{id}
     </select>
 
     <insert id="insert" parameterType="com.solvd.socialnetworkdao.Friendship">

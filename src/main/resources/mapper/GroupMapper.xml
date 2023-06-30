@@ -30,7 +30,7 @@
         FROM `Group`
             JOIN Group_Membership
                 ON `Group`.id = Group_Membership.group_id
-        WHERE Group_Membership.id = ?
+        WHERE Group_Membership.id = #{id}
     </select>
 
     <insert id="insert">

@@ -3,6 +3,7 @@ package com.solvd.socialnetworkdao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.solvd.socialnetworkdao.observers.MessageObserver;
 import com.solvd.socialnetworkdao.parser.json.DateSerializer;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +14,7 @@ import java.sql.Date;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Profile {
+public class Profile extends MessageObserver {
     @JsonProperty
     @XmlElement
     private Long id;
@@ -182,5 +183,12 @@ public class Profile {
                 ", incomingMessages=" + incomingMessages +
                 ", likes=" + likes +
                 '}';
+    }
+
+    @Override
+    public void update(Message message) {
+        List<Message> messages = this.getIncomingMessages();
+        messages.add(message);
+        this.setIncomingMessages(messages);
     }
 }

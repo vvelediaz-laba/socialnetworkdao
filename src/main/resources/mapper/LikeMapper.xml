@@ -17,11 +17,11 @@
     </select>
 
     <select id="getLikesByProfileId" resultMap="likeResultMap">
-        SELECT * FROM `Like` WHERE liker_profile_id=?
+        SELECT * FROM `Like` WHERE liker_profile_id=#{id}
     </select>
 
     <select id="getLikesByPostId" resultMap="likeResultMap">
-        SELECT * FROM `Like` WHERE liked_post_id=?
+        SELECT * FROM `Like` WHERE liked_post_id=#{id}
     </select>
 
     <insert id="insert" parameterType="com.solvd.socialnetworkdao.Like">

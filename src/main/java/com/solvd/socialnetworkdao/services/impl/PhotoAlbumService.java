@@ -1,17 +1,21 @@
-package com.solvd.socialnetworkdao.services.impl.jdbc;
+package com.solvd.socialnetworkdao.services.impl;
 
 import com.solvd.socialnetworkdao.Photo;
 import com.solvd.socialnetworkdao.PhotoAlbum;
 import com.solvd.socialnetworkdao.dao.IPhotoAlbumDAO;
-import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoAlbumDAO;
-import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoDAO;
+import com.solvd.socialnetworkdao.dao.IPhotoDAO;
 import com.solvd.socialnetworkdao.services.IPhotoAlbumService;
 
 import java.util.List;
 
 public class PhotoAlbumService implements IPhotoAlbumService {
-    private final IPhotoAlbumDAO photoAlbumDAO = new PhotoAlbumDAO();
-    private final PhotoDAO photoDAO = new PhotoDAO();
+    private IPhotoAlbumDAO photoAlbumDAO;
+    private IPhotoDAO photoDAO;
+
+    public PhotoAlbumService(IPhotoAlbumDAO photoAlbumDAO, IPhotoDAO photoDAO){
+        this.photoAlbumDAO = photoAlbumDAO;
+        this.photoDAO = photoDAO;
+    }
 
     @Override
     public void insert(PhotoAlbum photoAlbum, long profileId) {
@@ -42,6 +46,22 @@ public class PhotoAlbumService implements IPhotoAlbumService {
     @Override
     public void delete(long id) {
         photoAlbumDAO.delete(id);
+    }
+
+    public IPhotoAlbumDAO getPhotoAlbumDAO() {
+        return photoAlbumDAO;
+    }
+
+    public void setPhotoAlbumDAO(IPhotoAlbumDAO photoAlbumDAO) {
+        this.photoAlbumDAO = photoAlbumDAO;
+    }
+
+    public IPhotoDAO getPhotoDAO() {
+        return photoDAO;
+    }
+
+    public void setPhotoDAO(IPhotoDAO photoDAO) {
+        this.photoDAO = photoDAO;
     }
 
     private void setValues(PhotoAlbum photoAlbum) {

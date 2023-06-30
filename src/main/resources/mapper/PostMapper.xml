@@ -7,10 +7,10 @@
         <id property="id" column="post_id"/>
         <result property="dateCreated" column="date_created"/>
         <result property="content" column="content"/>
-        <collection property="likes" ofType="com.solvd.socialnetworkdao.Like" resultMap="com.solvd.socialnetworkdao.mapper.LikeMapper.likeResultMap"/>
-        <collection property="comments" ofType="com.solvd.socialnetworkdao.Comment" resultMap="com.solvd.socialnetworkdao.mapper.CommentMapper.commentResultMap"/>
-        <collection property="tags" ofType="com.solvd.socialnetworkdao.ProfileTag" resultMap="com.solvd.socialnetworkdao.mapper.ProfileTagMapper.profileTagResultMap"/>
-        <collection property="photos" ofType="com.solvd.socialnetworkdao.Photo" resultMap="com.solvd.socialnetworkdao.mapper.PhotoMapper.photoResultMap"/>
+        <collection property="likes" ofType="com.solvd.socialnetworkdao.Like" resultMap="com.solvd.socialnetworkdao.dao.ILikeDAO.likeResultMap"/>
+        <collection property="comments" ofType="com.solvd.socialnetworkdao.Comment" resultMap="com.solvd.socialnetworkdao.dao.ICommentDAO.commentResultMap"/>
+        <collection property="tags" ofType="com.solvd.socialnetworkdao.ProfileTag" resultMap="com.solvd.socialnetworkdao.dao.IProfileTagDAO.profileTagResultMap"/>
+        <collection property="photos" ofType="com.solvd.socialnetworkdao.Photo" resultMap="com.solvd.socialnetworkdao.dao.IPhotoDAO.photoResultMap"/>
     </resultMap>
 
     <select id="getById" resultMap="postResultMap">
@@ -38,23 +38,23 @@
     </select>
 
     <select id="getPostsByProfileId" resultMap="postResultMap">
-        SELECT * FROM Post WHERE poster_profile_id=?
+        SELECT * FROM Post WHERE poster_profile_id=#{id}
     </select>
 
     <select id="getByCommentId" resultMap="postResultMap">
-        SELECT Post.* FROM Post, Comment WHERE Post.id = Comment.commented_post_id AND Comment.id=?
+        SELECT Post.* FROM Post, Comment WHERE Post.id = Comment.commented_post_id AND Comment.id=#{id}
     </select>
 
     <select id="getByLikeId" resultMap="postResultMap">
-        SELECT Post.* FROM Post, `Like` WHERE Post.id = `Like`.liked_post_id AND `Like`.id=?
+        SELECT Post.* FROM Post, `Like` WHERE Post.id = `Like`.liked_post_id AND `Like`.id=#{id}
     </select>
 
     <select id="getByPostPhotoId" resultMap="postResultMap">
-        SELECT Post.* FROM Post JOIN Post_Photo ON Post.id = Post_Photo.post_id WHERE Post_Photo.id=?
+        SELECT Post.* FROM Post JOIN Post_Photo ON Post.id = Post_Photo.post_id WHERE Post_Photo.id=#{id}
     </select>
 
     <select id="getByProfileTagId" resultMap="postResultMap">
-        SELECT Post.* FROM Post, Profile_Tag WHERE Post.id = Profile_Tag.tagged_post_id AND Profile_Tag.id=?
+        SELECT Post.* FROM Post, Profile_Tag WHERE Post.id = Profile_Tag.tagged_post_id AND Profile_Tag.id=#{id}
     </select>
 
     <insert id="insert" parameterType="com.solvd.socialnetworkdao.Post">

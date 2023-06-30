@@ -39,4 +39,14 @@ public class Group {
     public void setGroupMembers(List<GroupMembership> groupMembers) {
         this.groupMembers = groupMembers;
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", groupName='" + groupName + '\'' +
+                ", description='" + description + '\'' +
+                ", groupMembers=" + groupMembers +
+                '}';
+    }
 }

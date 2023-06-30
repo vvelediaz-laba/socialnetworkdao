@@ -13,12 +13,11 @@ import java.sql.SQLException;
 
 public abstract class MyBatisDAO {
     private static final Logger logger = LogManager.getLogger(MyBatisDAO.class.getName());
-    private SqlSession session;
 
     protected <T> T executeWithSession(SessionFunction<T> sessionFunction) {
         try (InputStream stream = Resources.getResourceAsStream("mybatis-config.xml");
              SqlSession session = new SqlSessionFactoryBuilder().build(stream).openSession(true)){
-             sessionFunction.apply(session);
+             return sessionFunction.apply(session);
         } catch (SQLException | IOException e){
             logger.error(e);
             return null;

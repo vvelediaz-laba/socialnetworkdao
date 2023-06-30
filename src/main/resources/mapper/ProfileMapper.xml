@@ -9,84 +9,84 @@
         <result property="dateOfBirth" column="date_of_birth"/>
         <result property="gender" column="gender"/>
         <result property="bio" column="bio"/>
-        <collection property="photoAlbums" ofType="com.solvd.socialnetworkdao.PhotoAlbum" resultMap="com.solvd.socialnetworkdao.mapper.PhotoAlbumMapper.photoAlbumResultMap"/>
-        <collection property="outgoingFriendships" ofType="com.solvd.socialnetworkdao.Friendship" resultMap="com.solvd.socialnetworkdao.mapper.FriendshipMapper.friendshipResultMap"/>
-        <collection property="incomingFriendships" ofType="com.solvd.socialnetworkdao.Friendship" resultMap="com.solvd.socialnetworkdao.mapper.FriendshipMapper.friendshipResultMap"/>
-        <collection property="posts" ofType="com.solvd.socialnetworkdao.Post" resultMap="com.solvd.socialnetworkdao.mapper.PostMapper.postResultMap"/>
-        <collection property="profileTags" ofType="com.solvd.socialnetworkdao.ProfileTag" resultMap="com.solvd.socialnetworkdao.mapper.ProfileTagMapper.profileTagResultMap"/>
-        <collection property="groupMemberships" ofType="com.solvd.socialnetworkdao.GroupMembership" resultMap="com.solvd.socialnetworkdao.mapper.GroupMembershipMapper.groupMembershipRessultMap"/>
-        <collection property="outgoingMessages" ofType="com.solvd.socialnetworkdao.Message" resultMap="com.solvd.socialnetworkdao.mapper.MessageMapper.messageResultMap"/>
-        <collection property="incomingMessages" ofType="com.solvd.socialnetworkdao.Message" resultMap="com.solvd.socialnetworkdao.mapper.MessageMapper.messageResultMap"/>
-        <collection property="likes" ofType="com.solvd.socialnetworkdao.Like" resultMap="com.solvd.socialnetworkdao.mapper.LikeMapper.likeResultMap"/>
+        <collection property="photoAlbums" ofType="com.solvd.socialnetworkdao.PhotoAlbum" resultMap="com.solvd.socialnetworkdao.dao.IPhotoAlbumDAO.photoAlbumResultMap"/>
+        <collection property="outgoingFriendships" ofType="com.solvd.socialnetworkdao.Friendship" resultMap="com.solvd.socialnetworkdao.dao.IFriendshipDAO.friendshipResultMap"/>
+        <collection property="incomingFriendships" ofType="com.solvd.socialnetworkdao.Friendship" resultMap="com.solvd.socialnetworkdao.dao.IFriendshipDAO.friendshipResultMap"/>
+        <collection property="posts" ofType="com.solvd.socialnetworkdao.Post" resultMap="com.solvd.socialnetworkdao.dao.IPostDAO.postResultMap"/>
+        <collection property="profileTags" ofType="com.solvd.socialnetworkdao.ProfileTag" resultMap="com.solvd.socialnetworkdao.dao.IProfileTagDAO.profileTagResultMap"/>
+        <collection property="groupMemberships" ofType="com.solvd.socialnetworkdao.GroupMembership" resultMap="com.solvd.socialnetworkdao.dao.IGroupMembershipDAO.groupMembershipResultMap"/>
+        <collection property="outgoingMessages" ofType="com.solvd.socialnetworkdao.Message" resultMap="com.solvd.socialnetworkdao.dao.IMessageDAO.messageResultMap"/>
+        <collection property="incomingMessages" ofType="com.solvd.socialnetworkdao.Message" resultMap="com.solvd.socialnetworkdao.dao.IMessageDAO.messageResultMap"/>
+        <collection property="likes" ofType="com.solvd.socialnetworkdao.Like" resultMap="com.solvd.socialnetworkdao.dao.ILikeDAO.likeResultMap"/>
     </resultMap>
 
-    <select id="getProfileById" resultMap="profileResultMap">
+    <select id="getById" resultMap="profileResultMap">
         SELECT *
         FROM Profile
         WHERE id = #{id}
     </select>
     
-    <select id="getAllProfiles" resultMap="profileResultMap">
+    <select id="getAll" resultMap="profileResultMap">
         SELECT *
         FROM Profile
     </select>
 
     <select id="getByUserId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, User  WHERE Profile.id = User.user_profile_id AND User.id=?
+        SELECT Profile.* FROM Profile, User  WHERE Profile.id = User.user_profile_id AND User.id=#{id}
     </select>
 
     <select id="getByCommentId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Comment WHERE Profile.id = Comment.author_profile_id AND Comment.id=?
+        SELECT Profile.* FROM Profile, Comment WHERE Profile.id = Comment.author_profile_id AND Comment.id=#{id}
     </select>
 
     <select id="getByFriendshipId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Friendship WHERE Profile.id = Friendship.requester_profile_id AND Friendship.id=?
+        SELECT Profile.* FROM Profile, Friendship WHERE Profile.id = Friendship.requester_profile_id AND Friendship.id=#{id}
     </select>
 
     <select id="getRequestedByFriendshipId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Friendship WHERE Profile.id = Friendship.requested_profile_id AND Friendship.id=?
+        SELECT Profile.* FROM Profile, Friendship WHERE Profile.id = Friendship.requested_profile_id AND Friendship.id=#{id}
     </select>
 
     <select id="getByGroupMembershipId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Group_Membership WHERE Profile.id = Group_Membership.member_profile_id AND Group_Membership.id=?
+        SELECT Profile.* FROM Profile, Group_Membership WHERE Profile.id = Group_Membership.member_profile_id AND Group_Membership.id=#{id}
     </select>
 
     <select id="getByLikeId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, `Like` WHERE Profile.id = `Like`.liker_profile_id AND `Like`.id=?
+        SELECT Profile.* FROM Profile, `Like` WHERE Profile.id = `Like`.liker_profile_id AND `Like`.id=#{id}
     </select>
 
     <select id="getSenderByMessageId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Message WHERE Profile.id = Message.sender_profile_id AND Message.id=?
+        SELECT Profile.* FROM Profile, Message WHERE Profile.id = Message.sender_profile_id AND Message.id=#{id}
     </select>
 
     <select id="getReceiverByMessageId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Message WHERE Profile.id = Message.receiver_profile_id AND Message.id=?
+        SELECT Profile.* FROM Profile, Message WHERE Profile.id = Message.receiver_profile_id AND Message.id=#{id}
     </select>
 
     <select id="getByPhotoAlbumId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Photo_Album WHERE Profile.id = Photo_Album.album_profile_id AND Photo_Album.id=?
+        SELECT Profile.* FROM Profile, Photo_Album WHERE Profile.id = Photo_Album.album_profile_id AND Photo_Album.id=#{id}
     </select>
 
     <select id="getByPostId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Post WHERE Profile.id = Post.poster_profile_id AND Post.id=?
+        SELECT Profile.* FROM Profile, Post WHERE Profile.id = Post.poster_profile_id AND Post.id=#{id}
     </select>
 
     <select id="getByProfileTagId" resultMap="profileResultMap">
-        SELECT Profile.* FROM Profile, Profile_Tag WHERE Profile.id = Profile_Tag.tagged_profile_id AND Profile_Tag.id=?
+        SELECT Profile.* FROM Profile, Profile_Tag WHERE Profile.id = Profile_Tag.tagged_profile_id AND Profile_Tag.id=#{id}
     </select>
 
-    <insert id="insertProfile" parameterType="com.solvd.socialnetworkdao.Profile">
+    <insert id="insert" parameterType="com.solvd.socialnetworkdao.Profile">
         INSERT INTO Profile (id, full_name, date_of_birth, gender, bio)
         VALUES (#{id}, #{fullName}, #{dateOfBirth}, #{gender}, #{bio})
     </insert>
 
-    <update id="updateProfile" parameterType="com.solvd.socialnetworkdao.Profile">
+    <update id="update" parameterType="com.solvd.socialnetworkdao.Profile">
         UPDATE Profile
         SET full_name = #{fullName}, date_of_birth = #{dateOfBirth}, gender = #{gender}, bio = #{bio}
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteProfile" parameterType="long">
+    <delete id="delete" parameterType="long">
         DELETE FROM Profile
         WHERE id = #{id}
     </delete>

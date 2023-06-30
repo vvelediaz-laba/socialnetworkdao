@@ -18,11 +18,11 @@
     </select>
 
     <select id="getGroupMembershipsByProfileId" resultMap="groupMembershipResultMap">
-        SELECT * FROM Group_Membership WHERE member_profile_id=?
+        SELECT * FROM Group_Membership WHERE member_profile_id=#{memberProfileId}
     </select>
 
     <select id="getMembershipsByGroupId" resultMap="groupMembershipResultMap">
-        SELECT * FROM Group_Membership WHERE group_id=?
+        SELECT * FROM Group_Membership WHERE group_id=#{groupId}
     </select>
 
     <insert id="insert" parameterType="com.solvd.socialnetworkdao.GroupMembership">

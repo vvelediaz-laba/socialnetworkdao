@@ -44,4 +44,13 @@ public class Message {
     public void setDateSent(Date dateSent) {
         this.dateSent = dateSent;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", dateSent=" + dateSent +
+                '}';
+    }
 }

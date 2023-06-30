@@ -6,7 +6,7 @@
 
     <resultMap id="photoResultMap" type="com.solvd.socialnetworkdao.Photo">
         <id property="id" column="id"/>
-        <result property="content" column="content"/>
+        <result property="content" column="content" jdbcType="BLOB" javaType="byte[]" typeHandler="com.solvd.socialnetworkdao.utils.BlobTypeHandler"/>
         <result property="caption" column="caption"/>
         <result property="uploadDate" column="upload_date"/>
     </resultMap>
@@ -23,19 +23,19 @@
     </select>
 
     <select id="getByPostPhotoId" resultMap="photoResultMap">
-        SELECT Photo.* FROM Photo JOIN Post_Photo ON Photo.id = Post_Photo.photo_id JOIN Post ON Post.id = Post_Photo.post_id WHERE Post.id = ?
+        SELECT Photo.* FROM Photo JOIN Post_Photo ON Photo.id = Post_Photo.photo_id JOIN Post ON Post.id = Post_Photo.post_id WHERE Post.id = #{id}
     </select>
 
     <select id="getAssociatedPosts" resultMap="photoResultMap">
-        SELECT Post.* FROM POST JOIN Post_Photo ON Post.id = Post_Photo.post_id WHERE Post_Photo.photo_id = ?
+        SELECT Post.* FROM POST JOIN Post_Photo ON Post.id = Post_Photo.post_id WHERE Post_Photo.photo_id = #{id}
     </select>
 
     <select id="getPhotosByPhotoAlbumId" resultMap="photoResultMap">
-        SELECT * FROM Photo WHERE Photo.photo_album_id=?
+        SELECT * FROM Photo WHERE Photo.photo_album_id = #{id}
     </select>
 
     <select id="getPhotosByPostId" resultMap="photoResultMap">
-        SELECT Photo.* FROM Photo JOIN Post_Photo ON Photo.id = Post_Photo.photo_id JOIN Post ON Post.id = Post_Photo.post_id WHERE Post.id = ?
+        SELECT Photo.* FROM Photo JOIN Post_Photo ON Photo.id = Post_Photo.photo_id JOIN Post ON Post.id = Post_Photo.post_id WHERE Post.id = #{id}
     </select>
 
     <insert id="insert" parameterType="com.solvd.socialnetworkdao.Photo">

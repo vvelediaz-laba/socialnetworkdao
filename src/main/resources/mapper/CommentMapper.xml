@@ -20,11 +20,11 @@
     </select>
 
     <select id="getCommentsByPostId" resultMap="commentResultMap">
-        SELECT * FROM Comment WHERE commented_post_id=?
+        SELECT * FROM Comment WHERE commented_post_id=#{id}
     </select>
 
     <select id="getCommentsByProfileId" resultMap="commentResultMap">
-        SELECT * FROM Comment WHERE author_profile_id=?
+        SELECT * FROM Comment WHERE author_profile_id=#{id}
     </select>
     
     <insert id="insert" parameterType="com.solvd.socialnetworkdao.Comment">

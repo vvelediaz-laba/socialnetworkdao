@@ -22,11 +22,11 @@
     </select>
     
     <select id="getMessagesBySenderProfileId" resultMap="messageResultMap">
-        SELECT * FROM Message WHERE sender_profile_id=?
+        SELECT * FROM Message WHERE sender_profile_id=#{id}
     </select>
 
     <select id="getMessagesByReceiverProfileId" resultMap="messageResultMap">
-        SELECT * FROM Message WHERE receiver_profile_id=?
+        SELECT * FROM Message WHERE receiver_profile_id=#{id}
     </select>
 
     <insert id="insert" parameterType="com.solvd.socialnetworkdao.Message">

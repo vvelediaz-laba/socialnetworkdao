@@ -45,26 +45,26 @@
         </association>
     </resultMap>
 
-    <select id="selectUserById" resultMap="userResultMap">
+    <select id="getById" resultMap="userResultMap">
         SELECT * FROM User WHERE id = #{id}
     </select>
 
-    <insert id="insertUser">
+    <insert id="insert">
         INSERT INTO User (id, email, password, registration_date, user_profile_id)
         VALUES (#{id}, #{email}, #{password}, #{registrationDate, jdbcType=DATE}, #{profile.id})
     </insert>
 
-    <update id="updateUser">
+    <update id="update">
         UPDATE User SET email = #{email}, password = #{password},
                          registration_date = #{registrationDate, jdbcType=DATE}, user_profile_id = #{profile.id}
         WHERE id = #{id}
     </update>
 
-    <delete id="deleteUser">
+    <delete id="delete">
         DELETE FROM User WHERE id = #{id}
     </delete>
 
-    <select id="getAllUsers" resultMap="userResultMap">
+    <select id="getAll" resultMap="userResultMap">
         SELECT * FROM User
     </select>
 

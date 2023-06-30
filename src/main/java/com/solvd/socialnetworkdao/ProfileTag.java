@@ -10,4 +10,11 @@ public class ProfileTag {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ProfileTag{" +
+                "id=" + id +
+                '}';
+    }
 }

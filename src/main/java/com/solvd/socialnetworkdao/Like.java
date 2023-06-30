@@ -10,4 +10,11 @@ public class Like {
     public void setId(long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Like{" +
+                "id=" + id +
+                '}';
+    }
 }

@@ -28,4 +28,13 @@ public class PostPhoto {
     public void setPhoto(Photo photo) {
         this.photo = photo;
     }
+
+    @Override
+    public String toString() {
+        return "PostPhoto{" +
+                "id=" + id +
+                ", post=" + post +
+                ", photo=" + photo +
+                '}';
+    }
 }

@@ -19,4 +19,12 @@ public class GroupMembership {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "GroupMembership{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

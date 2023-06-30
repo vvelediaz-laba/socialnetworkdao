@@ -19,4 +19,12 @@ public class Friendship {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Friendship{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

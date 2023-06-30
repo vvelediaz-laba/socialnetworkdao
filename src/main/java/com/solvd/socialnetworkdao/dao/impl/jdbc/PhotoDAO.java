@@ -3,6 +3,7 @@ package com.solvd.socialnetworkdao.dao.impl.jdbc;
 import com.solvd.socialnetworkdao.Photo;
 import com.solvd.socialnetworkdao.Post;
 import com.solvd.socialnetworkdao.dao.IPhotoDAO;
+import com.solvd.socialnetworkdao.utils.ByteBlobConverter;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ public class PhotoDAO extends DAO implements IPhotoDAO {
                     "INSERT INTO Photo (id, photo_album_id, content, caption, upload_date) VALUES (?, ?, ?, ?, ?)");
             preparedStatement.setLong(1, photo.getId());
             preparedStatement.setLong(2, albumId);
-            preparedStatement.setBlob(3, photo.getContent());
+            preparedStatement.setBlob(3, ByteBlobConverter.convertToBlob(photo.getContent()));
             preparedStatement.setString(4, photo.getCaption());
             preparedStatement.setDate(5, new Date(photo.getUploadDate().getTime()));
             preparedStatement.executeUpdate();
@@ -69,7 +70,7 @@ public class PhotoDAO extends DAO implements IPhotoDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "UPDATE Photo SET photo_album_id=?, content=?, caption=?, upload_date=? WHERE id=?");
             preparedStatement.setLong(1, albumId);
-            preparedStatement.setBlob(2, photo.getContent());
+            preparedStatement.setBlob(2, ByteBlobConverter.convertToBlob(photo.getContent()));
             preparedStatement.setString(3, photo.getCaption());
             preparedStatement.setDate(4, new Date(photo.getUploadDate().getTime()));
             preparedStatement.setLong(5, photo.getId());
@@ -120,7 +121,7 @@ public class PhotoDAO extends DAO implements IPhotoDAO {
         Photo photo = new Photo();
         if(resultSet.next()){
             photo.setId(resultSet.getLong("id"));
-            photo.setContent(resultSet.getBlob("content"));
+            photo.setContent(ByteBlobConverter.convertToBytes(resultSet.getBlob("content")));
             photo.setCaption(resultSet.getString("caption"));
             photo.setUploadDate(resultSet.getDate("upload_date"));
         }

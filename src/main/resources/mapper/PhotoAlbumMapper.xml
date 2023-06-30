@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.socialnetworkdao.dao.IPhotoDAO">
+<mapper namespace="com.solvd.socialnetworkdao.dao.IPhotoAlbumDAO">
 
     <resultMap id="photoAlbumResultMap" type="com.solvd.socialnetworkdao.PhotoAlbum">
         <id property="id" column="id"/>
         <result property="photoAlbumName" column="photo_album_name"/>
         <result property="dateCreated" column="date_created"/>
-        <collection property="photos" ofType="com.solvd.socialnetworkdao.Photo" resultMap="com.solvd.socialnetworkdao.mapper.PhotoMapper.photoResultMap"/>
+        <collection property="photos" ofType="com.solvd.socialnetworkdao.Photo" resultMap="com.solvd.socialnetworkdao.dao.IPhotoDAO.photoResultMap"/>
     </resultMap>
 
     <select id="getById" resultMap="photoAlbumResultMap">
@@ -29,7 +29,7 @@
     </select>
 
     <select id="getPhotoAlbumsByProfileId" resultMap="photoAlbumResultMap">
-        SELECT * FROM Photo_Album WHERE album_profile_id=?
+        SELECT * FROM Photo_Album WHERE album_profile_id=#{id}
     </select>
 
     <select id="getAll" resultMap="photoAlbumResultMap">

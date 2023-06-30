@@ -1,4 +1,4 @@
-package com.solvd.socialnetworkdao.services.impl.jdbc;
+package com.solvd.socialnetworkdao.services.impl;
 
 import com.solvd.socialnetworkdao.Photo;
 import com.solvd.socialnetworkdao.Post;
@@ -6,19 +6,23 @@ import com.solvd.socialnetworkdao.PostPhoto;
 import com.solvd.socialnetworkdao.dao.IPhotoDAO;
 import com.solvd.socialnetworkdao.dao.IPostDAO;
 import com.solvd.socialnetworkdao.dao.IPostPhotoDAO;
-import com.solvd.socialnetworkdao.dao.impl.jdbc.PhotoDAO;
-import com.solvd.socialnetworkdao.dao.impl.jdbc.PostDAO;
-import com.solvd.socialnetworkdao.dao.impl.jdbc.PostPhotoDAO;
 import com.solvd.socialnetworkdao.services.IPostPhotoService;
 import com.solvd.socialnetworkdao.services.IPostService;
 
 import java.util.List;
 
 public class PostPhotoService implements IPostPhotoService {
-    private final IPostPhotoDAO postPhotoDAO = new PostPhotoDAO();
-    private final IPhotoDAO photoDAO = new PhotoDAO();
-    private final IPostDAO postDAO = new PostDAO();
-    private final IPostService postService = new PostService();
+    private IPostPhotoDAO postPhotoDAO;
+    private IPhotoDAO photoDAO;
+    private IPostDAO postDAO;
+    private IPostService postService;
+
+    public PostPhotoService(IPostPhotoDAO postPhotoDAO, IPhotoDAO photoDAO, IPostDAO postDAO, IPostService postService) {
+        this.postPhotoDAO = postPhotoDAO;
+        this.photoDAO = photoDAO;
+        this.postDAO = postDAO;
+        this.postService = postService;
+    }
 
     @Override
     public void insert(PostPhoto postPhoto) {
@@ -49,6 +53,38 @@ public class PostPhotoService implements IPostPhotoService {
     @Override
     public void delete(long id) {
         postPhotoDAO.delete(id);
+    }
+
+    public IPostPhotoDAO getPostPhotoDAO() {
+        return postPhotoDAO;
+    }
+
+    public void setPostPhotoDAO(IPostPhotoDAO postPhotoDAO) {
+        this.postPhotoDAO = postPhotoDAO;
+    }
+
+    public IPhotoDAO getPhotoDAO() {
+        return photoDAO;
+    }
+
+    public void setPhotoDAO(IPhotoDAO photoDAO) {
+        this.photoDAO = photoDAO;
+    }
+
+    public IPostDAO getPostDAO() {
+        return postDAO;
+    }
+
+    public void setPostDAO(IPostDAO postDAO) {
+        this.postDAO = postDAO;
+    }
+
+    public IPostService getPostService() {
+        return postService;
+    }
+
+    public void setPostService(IPostService postService) {
+        this.postService = postService;
     }
 
     private void setValues(PostPhoto postPhoto) {

@@ -89,4 +89,17 @@ public class Post {
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", dateCreated=" + dateCreated +
+                ", content='" + content + '\'' +
+                ", likes=" + likes +
+                ", comments=" + comments +
+                ", tags=" + tags +
+                ", photos=" + photos +
+                '}';
+    }
 }

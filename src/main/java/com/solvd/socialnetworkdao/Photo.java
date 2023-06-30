@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class Photo {
     private Long id;
-    private Blob content;
+    private byte[] content;
     private String caption;
     private Date uploadDate;
 
@@ -17,11 +17,11 @@ public class Photo {
         this.id = id;
     }
 
-    public Blob getContent() {
+    public byte[] getContent() {
         return content;
     }
 
-    public void setContent(Blob content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 
